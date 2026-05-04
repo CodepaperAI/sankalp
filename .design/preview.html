@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sankalp — Design System Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     DESIGN TOKENS
+     ============================================ */
+  :root {
+    /* Backgrounds */
+    --color-bg: #0a0a0a;
+    --color-surface: #141414;
+    --color-surface-raised: #1e1e1e;
+
+    /* Gold Accent */
+    --color-accent: #c9a96e;
+    --color-accent-light: #e2d1a2;
+    --color-accent-dim: #8b7748;
+
+    /* Text */
+    --color-text: #f5f0e8;
+    --color-text-muted: #8a8577;
+    --color-text-inverse: #0a0a0a;
+
+    /* Semantic */
+    --color-success: #4a7c59;
+    --color-error: #c45d5d;
+
+    /* Borders */
+    --color-border: rgba(201, 169, 110, 0.15);
+    --color-border-strong: rgba(201, 169, 110, 0.35);
+    --color-divider: rgba(245, 240, 232, 0.08);
+
+    /* Typography */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+
+    /* Easing */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-smooth: cubic-bezier(0.33, 1, 0.68, 1);
+
+    /* Spacing */
+    --section-gap: clamp(6rem, 10vw, 10rem);
+  }
+
+  /* ============================================
+     RESET & BASE
+     ============================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    background: var(--color-bg);
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============================================
+     CUSTOM CURSOR
+     ============================================ */
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.15s var(--ease-out-expo), opacity 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.4s var(--ease-out-expo), width 0.3s, height 0.3s, opacity 0.3s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+  .cursor-ring.hover {
+    width: 64px; height: 64px;
+    opacity: 1;
+    border-color: var(--color-accent-light);
+  }
+
+  /* ============================================
+     NAVIGATION
+     ============================================ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.5s, backdrop-filter 0.5s;
+  }
+  nav.scrolled {
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent-light);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .nav-links a {
+    position: relative;
+    color: var(--color-text-muted);
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--color-accent);
+    transition: width 0.4s var(--ease-out-expo);
+  }
+  .nav-links a:hover { color: var(--color-text); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--color-accent-light); }
+  .nav-links a.active::after { width: 100%; }
+  .nav-phone {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+  .nav-phone span { color: var(--color-accent); margin-right: 0.5rem; }
+
+  /* ============================================
+     HERO — 60/40 Split with Portrait Placeholder
+     ============================================ */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 0.7fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 6rem 6rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--color-accent-light);
+    font-weight: 400;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 440px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  /* Portrait side */
+  .hero-portrait {
+    position: relative;
+    background: linear-gradient(160deg, var(--color-surface) 0%, #1a1610 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(201,169,110,0.08) 0%, transparent 70%);
+  }
+  .portrait-placeholder {
+    width: 280px;
+    height: 380px;
+    background: linear-gradient(180deg, #2a2520 0%, #1a1610 100%);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    position: relative;
+  }
+  .portrait-silhouette {
+    width: 120px;
+    height: 160px;
+    background: radial-gradient(ellipse at 50% 30%, #3a3530 0%, #1a1610 100%);
+    border-radius: 50% 50% 45% 45%;
+    opacity: 0.6;
+  }
+  .portrait-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* Ambient glow behind portrait */
+  .hero-portrait::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(60px);
+  }
+
+  /* ============================================
+     BUTTONS
+     ============================================ */
+  .btn {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 2.25rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-out-expo);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+  .btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 32px rgba(201,169,110,0.35);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-accent-light);
+    border: 1px solid var(--color-border-strong);
+  }
+  .btn-secondary:hover {
+    background: rgba(201,169,110,0.08);
+    border-color: var(--color-accent);
+  }
+
+  /* ============================================
+     STATS BAR
+     ============================================ */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-divider);
+    padding: 3.5rem 6rem;
+    background: var(--color-surface);
+  }
+  .stat {
+    text-align: center;
+    position: relative;
+  }
+  .stat:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 10%; bottom: 10%;
+    width: 1px;
+    background: var(--color-divider);
+  }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--color-accent-light);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* ============================================
+     SECTION UTILITY
+     ============================================ */
+  .section {
+    padding: var(--section-gap) 6rem;
+    position: relative;
+  }
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-sub {
+    color: var(--color-text-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  /* ============================================
+     NICHE SPECIALTIES — Scroll-Pinned Preview
+     (Static mockup of the scroll interaction)
+     ============================================ */
+  .niches {
+    background: var(--color-bg);
+  }
+  .niches-header {
+    margin-bottom: 4rem;
+  }
+  .niche-showcase {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    min-height: 70vh;
+  }
+  .niche-image-area {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #1a1815 0%, #2a2520 50%, #1a1610 100%);
+    border: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .niche-image-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: center;
+    opacity: 0.5;
+  }
+  .niche-image-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(201,169,110,0.06) 0%, transparent 60%);
+  }
+  .niche-content {
+    padding: 2rem 0;
+  }
+  .niche-number {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 300;
+    color: rgba(201,169,110,0.1);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .niche-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--color-accent-light);
+  }
+  .niche-desc {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 400px;
+  }
+  .niche-cta {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    transition: gap 0.3s var(--ease-out-expo);
+  }
+  .niche-cta:hover { gap: 1.25rem; }
+  .niche-cta svg { width: 16px; height: 16px; }
+
+  /* Progress dots (representing scroll position) */
+  .niche-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .niche-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--color-accent-dim);
+    transition: all 0.3s;
+  }
+  .niche-dot.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 12px rgba(201,169,110,0.4);
+  }
+
+  /* ============================================
+     FEATURED TRANSACTIONS — Horizontal Scroll Band
+     ============================================ */
+  .transactions {
+    background: var(--color-surface);
+    padding: var(--section-gap) 0;
+    overflow: hidden;
+  }
+  .transactions-header {
+    padding: 0 6rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .scroll-band {
+    display: flex;
+    gap: 2rem;
+    padding: 0 6rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scroll-band::-webkit-scrollbar { display: none; }
+  .transaction-card {
+    flex: 0 0 380px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .transaction-card:hover { transform: translateY(-4px); }
+  .transaction-image {
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #1e1c18 0%, #2a2520 100%);
+    border: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .transaction-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%);
+    z-index: 1;
+  }
+  .transaction-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 2rem;
+    z-index: 2;
+  }
+  .transaction-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    background: var(--color-success);
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  .transaction-address {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+  .transaction-area {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .transaction-price {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-accent-light);
+  }
+  .image-placeholder-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0.3;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* ============================================
+     TESTIMONIAL WALL — Dark Section
+     ============================================ */
+  .testimonials {
+    background: var(--color-bg);
+    position: relative;
+  }
+  .testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+  .testimonial {
+    padding: 2.5rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    position: relative;
+    transition: border-color 0.4s, transform 0.4s var(--ease-out-expo);
+  }
+  .testimonial:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
+  .testimonial:first-child {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .testimonial-quote {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 300;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+  .testimonial:first-child .testimonial-quote {
+    font-size: 1.75rem;
+  }
+  .testimonial-quote::before {
+    content: '\201C';
+    font-size: 3rem;
+    color: var(--color-accent-dim);
+    line-height: 0;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .testimonial-author {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent-light);
+    margin-bottom: 0.25rem;
+  }
+  .testimonial-detail {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================
+     LEAD CAPTURE — Home Valuation
+     ============================================ */
+  .lead-section {
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  }
+  .lead-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .form-group {
+    position: relative;
+  }
+  .form-input {
+    width: 100%;
+    padding: 1.25rem 0 0.75rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-input:focus {
+    border-color: var(--color-accent);
+  }
+  .form-label {
+    position: absolute;
+    top: 1.25rem; left: 0;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    transition: all 0.3s var(--ease-out-expo);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+  .form-input:focus + .form-label,
+  .form-input:not(:placeholder-shown) + .form-label {
+    top: 0;
+    font-size: 0.65rem;
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .lead-trust {
+    margin-top: 1rem;
+  }
+  .lead-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .lead-trust-icon {
+    width: 16px; height: 16px;
+    color: var(--color-accent-dim);
+  }
+
+  /* ============================================
+     REFERRAL SECTION — Split Layout
+     ============================================ */
+  .referral {
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-divider);
+  }
+  .referral-split {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .referral-visual {
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, rgba(201,169,110,0.08) 0%, var(--color-surface) 100%);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .referral-visual::after {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,169,110,0.1) 0%, transparent 70%);
+    filter: blur(40px);
+  }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  footer {
+    border-top: 1px solid var(--color-divider);
+    padding: 4rem 6rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-accent-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .footer-tagline {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 280px;
+    margin-bottom: 2rem;
+  }
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+  .footer-social a {
+    width: 36px; height: 36px;
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    transition: all 0.3s;
+  }
+  .footer-social a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .footer-col-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--color-text); }
+  .footer-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--color-divider);
+    padding-top: 2rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================
+     TYPE SPECIMEN SECTION
+     ============================================ */
+  .specimen {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .specimen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+  .specimen-display {
+    font-family: var(--font-display);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .specimen-body-sample {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+  .specimen-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-dim);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .specimen-sizes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .specimen-sizes span {
+    font-family: var(--font-display);
+    color: var(--color-text);
+  }
+
+  /* ============================================
+     COLOR TOKENS DISPLAY
+     ============================================ */
+  .tokens {
+    background: var(--color-bg);
+  }
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .token-swatch {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    position: relative;
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .token-swatch:hover { transform: scale(1.02); }
+  .token-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+  }
+  .token-hex {
+    font-size: 0.6rem;
+    color: var(--color-text-muted);
+    font-family: monospace;
+  }
+
+  /* ============================================
+     BAN LIST SECTION
+     ============================================ */
+  .bans {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-divider);
+  }
+  .ban-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .ban-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid rgba(196, 93, 93, 0.15);
+    background: rgba(196, 93, 93, 0.03);
+  }
+  .ban-icon {
+    color: var(--color-error);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .ban-text {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-content { padding: 8rem 3rem 4rem; }
+    .hero-portrait { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 2rem; padding: 3rem; }
+    .section { padding: var(--section-gap) 3rem; }
+    .niche-showcase { grid-template-columns: 1fr; gap: 2rem; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .lead-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .referral-split { grid-template-columns: 1fr; gap: 3rem; }
+    .specimen-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; }
+    .transactions-header { padding: 0 3rem; }
+    .scroll-band { padding: 0 3rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-content { padding: 7rem 1.5rem 3rem; }
+    .hero-headline { font-size: 2.5rem; }
+    .section { padding: var(--section-gap) 1.5rem; }
+    .stats-bar { grid-template-columns: 1fr 1fr; padding: 2rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    footer { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+    .transaction-card { flex: 0 0 300px; }
+    .transactions-header { padding: 0 1.5rem; }
+    .scroll-band { padding: 0 1.5rem; }
+  }
+
+  /* ============================================
+     ANIMATIONS (CSS-only for preview)
+     ============================================ */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes goldPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0); }
+    50% { box-shadow: 0 0 24px 4px rgba(201,169,110,0.2); }
+  }
+  .hero-eyebrow { animation: fadeIn 0.6s 0.2s both; }
+  .hero-headline { animation: fadeInUp 0.8s 0.4s both; }
+  .hero-sub { animation: fadeInUp 0.8s 0.6s both; }
+  .hero-ctas { animation: fadeInUp 0.8s 0.8s both; }
+  .hero-ctas .btn-primary { animation: goldPulse 3s 2s infinite; }
+
+  /* Scroll-triggered fade-in (IntersectionObserver via JS below) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav id="mainNav">
+  <div class="nav-logo">Sankalp</div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">Buy</a></li>
+    <li><a href="#">Sell</a></li>
+    <li><a href="#">Communities</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-phone">
+    <span>&#9742;</span> (416) 555-0199
+  </div>
+</nav>
+
+<!-- ============================================
+     HERO — 60/40 Split
+     ============================================ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Greater Toronto Area &nbsp;·&nbsp; Luxury Real Estate</div>
+    <h1 class="hero-headline">
+      Your Home.<br><em>Your Legacy.</em>
+    </h1>
+    <p class="hero-sub">
+      Trusted by families across the GTA to find not just a property — but the place where their story continues. Seven specialties. One commitment.
+    </p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary">Get Your Home Valuation</button>
+      <button class="btn btn-secondary">Book a Consultation</button>
+    </div>
+  </div>
+  <div class="hero-portrait">
+    <div class="portrait-placeholder">
+      <div class="portrait-silhouette"></div>
+      <div class="portrait-label">Portrait to be<br>commissioned</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     STATS BAR
+     ============================================ -->
+<div class="stats-bar">
+  <div class="stat reveal">
+    <div class="stat-number" data-target="350">0</div>
+    <div class="stat-label">Families Served</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-number" data-target="180" data-prefix="$" data-suffix="M+">0</div>
+    <div class="stat-label">In Transactions</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-number" data-target="12">0</div>
+    <div class="stat-label">GTA Neighbourhoods</div>
+  </div>
+  <div class="stat reveal">
+    <div class="stat-number" data-target="7">0</div>
+    <div class="stat-label">Specialties</div>
+  </div>
+</div>
+
+<!-- ============================================
+     NICHE SPECIALTIES — Showcase (Static Preview of Scroll-Pinned)
+     ============================================ -->
+<section class="section niches">
+  <div class="niches-header reveal">
+    <div class="section-eyebrow">Specialties</div>
+    <h2 class="section-title">Every journey is<br>different. <em style="font-family:var(--font-display);font-style:italic;color:var(--color-accent-light)">So is our expertise.</em></h2>
+    <p class="section-sub">Seven focused practices — each with dedicated market knowledge, tailored strategies, and clients who'll tell you the difference it made.</p>
+  </div>
+
+  <div class="niche-showcase reveal" style="position:relative;">
+    <div class="niche-image-area">
+      <div class="niche-image-label">Luxury Property Photography<br>— to be sourced</div>
+    </div>
+    <div class="niche-content">
+      <div class="niche-number">05</div>
+      <h3 class="niche-name">Luxury Homes</h3>
+      <p class="niche-desc">Estates, custom builds, and legacy properties across Oakville, King City, Forest Hill, and the Bridle Path. White-glove service from private showings to closing.</p>
+      <a href="#" class="niche-cta">
+        Explore Luxury
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- Scroll progress dots -->
+    <div class="niche-progress">
+      <div class="niche-dot"></div>
+      <div class="niche-dot"></div>
+      <div class="niche-dot"></div>
+      <div class="niche-dot"></div>
+      <div class="niche-dot active"></div>
+      <div class="niche-dot"></div>
+      <div class="niche-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FEATURED TRANSACTIONS — Horizontal Scroll
+     ============================================ -->
+<section class="transactions">
+  <div class="transactions-header reveal">
+    <div>
+      <div class="section-eyebrow">Recent Transactions</div>
+      <h2 class="section-title">Results speak.</h2>
+    </div>
+    <a href="#" class="niche-cta">
+      View All
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="scroll-band">
+    <div class="transaction-card">
+      <div class="transaction-image">
+        <div class="image-placeholder-text">Twilight exterior<br>— Oakville</div>
+        <div class="transaction-overlay">
+          <div class="transaction-badge">Sold</div>
+          <div class="transaction-address">142 Lakeshore Road</div>
+          <div class="transaction-area">Oakville · 4 Bed · 3 Bath · 3,200 sqft</div>
+          <div class="transaction-price">$2,450,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="transaction-card">
+      <div class="transaction-image">
+        <div class="image-placeholder-text">Penthouse interior<br>— Yorkville</div>
+        <div class="transaction-overlay">
+          <div class="transaction-badge">Sold</div>
+          <div class="transaction-address">1 Bloor Street E, PH4</div>
+          <div class="transaction-area">Yorkville · 2 Bed · 2 Bath · 1,800 sqft</div>
+          <div class="transaction-price">$1,890,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="transaction-card">
+      <div class="transaction-image">
+        <div class="image-placeholder-text">Family home<br>— Brampton</div>
+        <div class="transaction-overlay">
+          <div class="transaction-badge">Sold</div>
+          <div class="transaction-address">78 Heritage Hills Drive</div>
+          <div class="transaction-area">Brampton · 5 Bed · 4 Bath · 4,100 sqft</div>
+          <div class="transaction-price">$1,350,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="transaction-card">
+      <div class="transaction-image">
+        <div class="image-placeholder-text">Pre-construction render<br>— Mississauga</div>
+        <div class="transaction-overlay">
+          <span class="transaction-badge" style="background:var(--color-info)">Pre-Construction</span>
+          <div class="transaction-address">M City Tower 4, Unit 2812</div>
+          <div class="transaction-area">Mississauga · 1+Den · 1 Bath · 650 sqft</div>
+          <div class="transaction-price">$625,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="transaction-card">
+      <div class="transaction-image">
+        <div class="image-placeholder-text">Investment duplex<br>— Hamilton</div>
+        <div class="transaction-overlay">
+          <div class="transaction-badge">Sold</div>
+          <div class="transaction-address">34 James Street N</div>
+          <div class="transaction-area">Hamilton · Duplex · 6 Bed · 3 Bath</div>
+          <div class="transaction-price">$890,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TESTIMONIALS — Dark Section
+     ============================================ -->
+<section class="section testimonials">
+  <div class="reveal">
+    <div class="section-eyebrow">Client Stories</div>
+    <h2 class="section-title">Words from the families<br>we've served.</h2>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">
+        We moved from Mumbai with two kids and no idea how Canadian real estate worked. Sankalp didn't just find us a home — he found us our neighbourhood. Our kids walk to school, we're five minutes from the temple, and our parents visit every winter.
+      </div>
+      <div class="testimonial-author">Priya & Rahul M.</div>
+      <div class="testimonial-detail">Relocation · Brampton · 2024</div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">
+        Every pre-construction pitch we'd seen felt like a gamble. Sankalp showed us the developer's track record, the neighbourhood growth data, and the real numbers. We invested with confidence.
+      </div>
+      <div class="testimonial-author">Amrit S.</div>
+      <div class="testimonial-detail">Pre-Construction Investment · Mississauga · 2023</div>
+    </div>
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">
+        After forty years in our family home, downsizing felt like losing a piece of ourselves. Sankalp understood. He found us a place that felt like the next chapter, not a compromise.
+      </div>
+      <div class="testimonial-author">Dr. Kamla P.</div>
+      <div class="testimonial-detail">Downsizing · Oakville · 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     LEAD CAPTURE — Home Valuation
+     ============================================ -->
+<section class="section lead-section">
+  <div class="lead-grid">
+    <div class="reveal">
+      <div class="section-eyebrow">Thinking of Selling?</div>
+      <h2 class="section-title">Know what your<br>home is <em style="font-family:var(--font-display);font-style:italic;color:var(--color-accent-light)">really worth.</em></h2>
+      <p class="section-sub" style="margin-bottom:2rem;">Get a complimentary, no-obligation market evaluation of your property. Based on real GTA comparables — not automated estimates.</p>
+      <div class="lead-trust">
+        <div class="lead-trust-item">
+          <svg class="lead-trust-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4L6 11l-3-3"/></svg>
+          Response within 24 hours
+        </div>
+        <div class="lead-trust-item">
+          <svg class="lead-trust-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4L6 11l-3-3"/></svg>
+          Based on recent neighbourhood sales
+        </div>
+        <div class="lead-trust-item">
+          <svg class="lead-trust-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4L6 11l-3-3"/></svg>
+          No automated estimates — real analysis
+        </div>
+      </div>
+    </div>
+    <form class="lead-form reveal" onsubmit="return false">
+      <div class="form-group">
+        <input class="form-input" type="text" placeholder=" " id="valName">
+        <label class="form-label" for="valName">Full Name</label>
+      </div>
+      <div class="form-group">
+        <input class="form-input" type="email" placeholder=" " id="valEmail">
+        <label class="form-label" for="valEmail">Email Address</label>
+      </div>
+      <div class="form-group">
+        <input class="form-input" type="tel" placeholder=" " id="valPhone">
+        <label class="form-label" for="valPhone">Phone Number</label>
+      </div>
+      <div class="form-group">
+        <input class="form-input" type="text" placeholder=" " id="valAddress">
+        <label class="form-label" for="valAddress">Property Address</label>
+      </div>
+      <button class="btn btn-primary" style="margin-top:0.5rem; align-self:flex-start;">Get Your Home Valuation</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================
+     REFERRAL — 40/60 Split
+     ============================================ -->
+<section class="section referral">
+  <div class="referral-split">
+    <div class="referral-visual">
+      <div class="image-placeholder-text">Community event<br>photography — to be sourced</div>
+    </div>
+    <div class="reveal">
+      <div class="section-eyebrow">Refer a Friend</div>
+      <h2 class="section-title">Great homes deserve<br>great neighbours.</h2>
+      <p class="section-sub" style="margin-bottom:2rem;">Know someone buying or selling in the GTA? Refer them to Sankalp and receive a personal thank-you gift when the transaction closes. No strings — just gratitude for your trust.</p>
+      <button class="btn btn-primary">Make a Referral</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TYPE SPECIMEN
+     ============================================ -->
+<section class="section specimen">
+  <div class="reveal">
+    <div class="section-eyebrow">Design System &mdash; Typography</div>
+    <h2 class="section-title">Type Specimen</h2>
+  </div>
+  <div class="specimen-grid reveal">
+    <div>
+      <div class="specimen-label">Display — Cormorant Garamond</div>
+      <div class="specimen-sizes">
+        <span style="font-size:4rem;font-weight:300;">Your Legacy Awaits</span>
+        <span style="font-size:2.5rem;font-weight:400;font-style:italic;">Exceptional Homes</span>
+        <span style="font-size:1.75rem;font-weight:500;">Greater Toronto Area</span>
+        <span style="font-size:1.25rem;font-weight:600;">Trusted Since 2015</span>
+      </div>
+    </div>
+    <div>
+      <div class="specimen-label">Body — DM Sans</div>
+      <p class="specimen-body-sample">
+        The Greater Toronto Area offers one of the most dynamic real estate markets in North America. From the historic charm of Oakville's lakeside estates to the vibrant energy of Yorkville's luxury condominiums, each neighbourhood tells a different story.
+      </p>
+      <p class="specimen-body-sample" style="margin-top:1rem;">
+        <strong>DM Sans Bold for emphasis.</strong> <em>DM Sans Italic for secondary voice.</em>
+      </p>
+      <p style="margin-top:1.5rem;">
+        <span style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--color-accent);font-weight:500;">LABEL STYLE — 0.7REM / LS 0.25EM / UPPERCASE</span>
+      </p>
+      <p style="margin-top:0.75rem;">
+        <span style="font-size:0.65rem;color:var(--color-text-muted);letter-spacing:0.15em;text-transform:uppercase;">CAPTION STYLE — 0.65REM / MUTED</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     COLOR TOKENS
+     ============================================ -->
+<section class="section tokens">
+  <div class="reveal">
+    <div class="section-eyebrow">Design System &mdash; Colour</div>
+    <h2 class="section-title">Colour Tokens</h2>
+  </div>
+  <div class="token-grid reveal">
+    <div class="token-swatch" style="background:#0a0a0a;">
+      <div class="token-name">bg</div>
+      <div class="token-hex">#0a0a0a</div>
+    </div>
+    <div class="token-swatch" style="background:#141414;">
+      <div class="token-name">surface</div>
+      <div class="token-hex">#141414</div>
+    </div>
+    <div class="token-swatch" style="background:#1e1e1e;">
+      <div class="token-name">surface-raised</div>
+      <div class="token-hex">#1e1e1e</div>
+    </div>
+    <div class="token-swatch" style="background:#c9a96e;">
+      <div class="token-name" style="color:#0a0a0a;">accent</div>
+      <div class="token-hex" style="color:#0a0a0a;">#c9a96e</div>
+    </div>
+    <div class="token-swatch" style="background:#e2d1a2;">
+      <div class="token-name" style="color:#0a0a0a;">accent-light</div>
+      <div class="token-hex" style="color:#0a0a0a;">#e2d1a2</div>
+    </div>
+    <div class="token-swatch" style="background:#8b7748;">
+      <div class="token-name">accent-dim</div>
+      <div class="token-hex">#8b7748</div>
+    </div>
+    <div class="token-swatch" style="background:#f5f0e8;">
+      <div class="token-name" style="color:#0a0a0a;">text</div>
+      <div class="token-hex" style="color:#0a0a0a;">#f5f0e8</div>
+    </div>
+    <div class="token-swatch" style="background:#8a8577;">
+      <div class="token-name">text-muted</div>
+      <div class="token-hex">#8a8577</div>
+    </div>
+    <div class="token-swatch" style="background:#4a7c59;">
+      <div class="token-name">success</div>
+      <div class="token-hex">#4a7c59</div>
+    </div>
+    <div class="token-swatch" style="background:#c45d5d;">
+      <div class="token-name">error</div>
+      <div class="token-hex">#c45d5d</div>
+    </div>
+    <div class="token-swatch" style="background:#5d7f9e;">
+      <div class="token-name">info</div>
+      <div class="token-hex">#5d7f9e</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     BAN LIST
+     ============================================ -->
+<section class="section bans">
+  <div class="reveal">
+    <div class="section-eyebrow">Design System &mdash; Constraints</div>
+    <h2 class="section-title">Banned Patterns</h2>
+    <p class="section-sub">If any of these appear in production, it's an immediate rebuild.</p>
+  </div>
+  <div class="ban-grid reveal">
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Equal-column card grids</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Blue/white realtor colour scheme</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Stock photography of any kind</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Carousel sliders for listings</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Inter / Arial / system font defaults</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Bollywood aesthetics or cultural clichés</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Red/saffron "default Indian business" palette</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Generic "Submit" button text</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Testimonial carousels with circular avatars</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Symmetric layouts throughout</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">IDX search bar as the hero</span>
+    </div>
+    <div class="ban-item">
+      <span class="ban-icon">&#10005;</span>
+      <span class="ban-text">Decorative animations with no purpose</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <div>
+    <div class="footer-brand">Sankalp</div>
+    <p class="footer-tagline">Luxury real estate across the Greater Toronto Area. Seven specialties, one commitment — your home, your legacy.</p>
+    <div class="footer-social">
+      <a href="#" title="Instagram">IG</a>
+      <a href="#" title="LinkedIn">LI</a>
+      <a href="#" title="WhatsApp">WA</a>
+      <a href="#" title="YouTube">YT</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Buyers</div>
+    <a href="#">First-Time Buyers</a>
+    <a href="#">Luxury Homes</a>
+    <a href="#">Condos</a>
+    <a href="#">Pre-Construction</a>
+    <a href="#">Investment</a>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Sellers</div>
+    <a href="#">Home Valuation</a>
+    <a href="#">Selling Process</a>
+    <a href="#">Market Reports</a>
+    <a href="#">Staging Guide</a>
+  </div>
+  <div class="footer-col">
+    <div class="footer-col-title">Connect</div>
+    <a href="#">About Sankalp</a>
+    <a href="#">Communities</a>
+    <a href="#">Journal</a>
+    <a href="#">Contact</a>
+    <a href="#">Refer a Friend</a>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Sankalp Real Estate. All rights reserved.</span>
+    <span>Brokerage: [Brokerage Name] · RECO Registered</span>
+  </div>
+</footer>
+
+<!-- ============================================
+     SCRIPTS
+     ============================================ -->
+<script>
+  // Custom cursor
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover effect on interactive elements
+  document.querySelectorAll('a, button, .transaction-card, .testimonial, .token-swatch').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
+  // Nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // Reveal on scroll (IntersectionObserver)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Counter animation for stats
+        const counters = entry.target.querySelectorAll('[data-target]');
+        counters.forEach(counter => {
+          const target = parseInt(counter.dataset.target);
+          const prefix = counter.dataset.prefix || '';
+          const suffix = counter.dataset.suffix || '';
+          let current = 0;
+          const step = target / 60;
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            counter.textContent = prefix + Math.round(current) + (current >= target ? (suffix || '+') : '');
+          }, 25);
+        });
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Hide custom cursor on touch devices
+  if ('ontouchstart' in window) {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
