@@ -49,7 +49,7 @@ export function SoldContent() {
               {/* Image placeholder */}
               <div
                 className="aspect-[16/10] border border-[var(--color-border)] mb-5 flex items-center justify-center relative overflow-hidden group-hover:border-[var(--color-border-strong)] transition-colors duration-300"
-                style={{ background: "linear-gradient(135deg, #1a1815 0%, #1e1c18 100%)" }}
+                style={{ background: "linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface) 100%)" }}
               >
                 <span className="absolute top-3 left-3 text-[0.55rem] tracking-[0.2em] uppercase font-semibold px-2 py-1 bg-[var(--color-success)] text-[var(--color-text)]">
                   Sold
@@ -88,7 +88,7 @@ export function SoldContent() {
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] hover:scale-[1.03] transition-all duration-300"
           >
             Book a Consultation
           </Link>

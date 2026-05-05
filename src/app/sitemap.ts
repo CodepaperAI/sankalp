@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
-
-// TODO: Phase 3 — pull dynamic routes from Sanity CMS
-// (neighbourhood slugs, journal posts, property pages)
+import { neighbourhoods } from "@/lib/neighbourhoods";
+import { articles } from "@/lib/journal";
 
 const BASE_URL = "https://sankalprealestate.ca";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date().toISOString();
+
   const staticRoutes = [
     "",
     "/about",
@@ -17,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/refer",
     "/home-valuation",
     "/sold",
+    "/journal",
   ];
 
   const niches = [
@@ -29,7 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/buy/downsizing",
   ];
 
-  const now = new Date().toISOString();
+  const communityRoutes = neighbourhoods.map((n) => `/communities/${n.slug}`);
+  const articleRoutes = articles.map((a) => `/journal/${a.slug}`);
 
   return [
     ...staticRoutes.map((route) => ({
@@ -43,6 +46,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...communityRoutes.map((route) => ({
+      url: `${BASE_URL}${route}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
+    ...articleRoutes.map((route) => ({
+      url: `${BASE_URL}${route}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }

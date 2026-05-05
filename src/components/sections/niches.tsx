@@ -123,12 +123,12 @@ function NicheItem({
           !isEven ? "lg:[direction:ltr]" : ""
         }`}
         style={{
-          background: "linear-gradient(135deg, #1a1815 0%, #2a2520 50%, #1a1610 100%)",
+          background: "linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg) 100%)",
           y: imageY,
           opacity: imageOpacity,
         }}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_70%,rgba(201,169,110,0.06)_0%,transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_70%,rgba(184,150,12,0.04)_0%,transparent_60%)]" />
         <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center opacity-50">
           {niche.image}
         </p>
@@ -137,7 +137,7 @@ function NicheItem({
       {/* Content */}
       <div className={`py-4 ${!isEven ? "lg:[direction:ltr]" : ""}`}>
         <ScrollReveal delay={0.1}>
-          <span className="font-[family-name:var(--font-display)] text-[4rem] lg:text-[5rem] font-light leading-none text-[rgba(201,169,110,0.1)] block mb-3">
+          <span className="font-[family-name:var(--font-display)] text-[4rem] lg:text-[5rem] font-light leading-none text-[rgba(184,150,12,0.08)] block mb-3">
             {niche.number}
           </span>
           <h3 className="font-[family-name:var(--font-display)] text-[clamp(1.75rem,3vw,2.5rem)] font-normal text-[var(--color-accent-light)] mb-4">

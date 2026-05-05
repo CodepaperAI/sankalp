@@ -101,9 +101,9 @@ export function Transactions() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="aspect-[3/4] border border-[var(--color-border)] relative overflow-hidden flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-500" style={{ background: "linear-gradient(160deg, #1e1c18 0%, #2a2520 100%)" }}>
+              <div className="aspect-[3/4] border border-[var(--color-border)] relative overflow-hidden flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-500" style={{ background: "linear-gradient(160deg, var(--color-surface) 0%, var(--color-bg) 100%)" }}>
                 {/* Gradient overlay at bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.9)] via-transparent to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(250,248,245,0.95)] via-transparent to-transparent z-10" />
                 <p className="text-[0.6rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] text-center opacity-30 px-4">
                   {t.image}
                 </p>

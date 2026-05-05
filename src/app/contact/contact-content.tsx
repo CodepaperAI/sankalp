@@ -109,7 +109,7 @@ export function ContactContent() {
                   How can I help?
                 </label>
               </div>
-              <MagneticButton className="mt-2 self-start text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] transition-shadow duration-300 border-none cursor-pointer">
+              <MagneticButton className="mt-2 self-start text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] transition-shadow duration-300 border-none cursor-pointer">
                 Send Message
               </MagneticButton>
             </form>

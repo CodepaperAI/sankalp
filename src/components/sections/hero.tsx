@@ -58,12 +58,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <MagneticButton as="a" href="/home-valuation" className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] transition-shadow duration-300">
+          <MagneticButton as="a" href="/home-valuation" className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(184,150,12,0.2)] transition-shadow duration-300">
             Get Your Home Valuation
           </MagneticButton>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 border border-[var(--color-border-strong)] text-[var(--color-accent-light)] hover:bg-[rgba(201,169,110,0.08)] hover:border-[var(--color-accent)] transition-all duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 border border-[var(--color-border-strong)] text-[var(--color-accent-light)] hover:bg-[rgba(184,150,12,0.05)] hover:border-[var(--color-accent)] transition-all duration-300"
           >
             Book a Consultation
           </Link>
@@ -72,18 +72,17 @@ export function Hero() {
 
       {/* Portrait Side */}
       <motion.div
-        className="hidden lg:flex relative items-center justify-center"
-        style={{ background: "linear-gradient(160deg, var(--color-surface) 0%, #1a1610 100%)" }}
+        className="hidden lg:flex relative items-center justify-center bg-[var(--color-surface)]"
         initial={{ clipPath: "inset(0 0 0 100%)" }}
         animate={{ clipPath: "inset(0 0 0 0%)" }}
         transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Ambient glow */}
-        <div className="absolute w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(201,169,110,0.12)_0%,transparent_70%)] blur-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        {/* Ambient warmth */}
+        <div className="absolute w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(184,150,12,0.06)_0%,transparent_70%)] blur-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
         {/* Portrait placeholder */}
-        <div className="w-[280px] h-[380px] border border-[var(--color-border)] flex flex-col items-center justify-center gap-6 relative" style={{ background: "linear-gradient(180deg, #2a2520 0%, #1a1610 100%)" }}>
-          <div className="w-[120px] h-[160px] rounded-[50%_50%_45%_45%] opacity-60" style={{ background: "radial-gradient(ellipse at 50% 30%, #3a3530 0%, #1a1610 100%)" }} />
+        <div className="w-[280px] h-[380px] border border-[var(--color-border)] bg-[var(--color-bg)] flex flex-col items-center justify-center gap-6 relative">
+          <div className="w-[120px] h-[160px] rounded-[50%_50%_45%_45%] opacity-40 bg-[var(--color-accent-dim)]" />
           <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center leading-relaxed">
             Portrait to be<br />commissioned
           </p>

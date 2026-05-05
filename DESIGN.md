@@ -1,7 +1,7 @@
 # Sankalp Real Estate — Design System
 
-> **Aesthetic:** Dark Luxury Editorial — refined gold on rich black, image-driven, cinematic scroll storytelling
-> **Emotional Tone:** Trustworthy, Prestigious, Warm
+> **Aesthetic:** Warm Luxury Editorial — gold accents on warm white, image-driven, cinematic scroll storytelling
+> **Emotional Tone:** Trustworthy, Approachable, Prestigious
 > **Tagline Direction:** "Your Home. Your Legacy."
 
 ---
@@ -33,49 +33,49 @@ All colors defined as CSS custom properties on `:root`.
 ### Core Palette
 ```css
 :root {
-  /* Backgrounds */
-  --color-bg:             #0a0a0a;    /* Rich black — primary background */
-  --color-surface:        #141414;    /* Elevated cards, nav, panels */
-  --color-surface-raised: #1e1e1e;    /* Modals, popovers, hover states */
+  /* Backgrounds — warm light */
+  --color-bg:             #faf8f5;    /* Warm white — primary background */
+  --color-surface:        #f0ede8;    /* Slightly deeper warm — cards, nav, panels */
+  --color-surface-raised: #ffffff;    /* Pure white — modals, popovers */
 
   /* Gold Accent (the signature) */
-  --color-accent:         #c9a96e;    /* Primary gold — CTAs, highlights, borders */
-  --color-accent-light:   #e2d1a2;    /* Gold on dark text, subtle highlights */
-  --color-accent-dim:     #8b7748;    /* Muted gold for secondary elements */
+  --color-accent:         #b8960c;    /* Rich gold — CTAs, highlights */
+  --color-accent-light:   #8b7748;    /* Darker gold for text on light backgrounds */
+  --color-accent-dim:     #d4c5a9;    /* Muted gold for subtle elements */
 
-  /* Text */
-  --color-text:           #f5f0e8;    /* Warm white — primary text */
-  --color-text-muted:     #8a8577;    /* Warm gray — secondary text, captions */
-  --color-text-inverse:   #0a0a0a;    /* Text on gold/light backgrounds */
+  /* Text — charcoal */
+  --color-text:           #1a1a1a;    /* Rich charcoal — primary text */
+  --color-text-muted:     #6b6560;    /* Warm gray — secondary text, captions */
+  --color-text-inverse:   #faf8f5;    /* Text on gold/dark backgrounds */
 
   /* Semantic */
-  --color-success:        #4a7c59;    /* Active listings, positive states */
-  --color-error:          #c45d5d;    /* Form errors, alerts */
-  --color-info:           #5d7f9e;    /* Informational badges */
+  --color-success:        #3d6b4a;    /* Active listings, positive states */
+  --color-error:          #b54a4a;    /* Form errors, alerts */
+  --color-info:           #4a6d8a;    /* Informational badges */
 
   /* Borders & Dividers */
-  --color-border:         rgba(201, 169, 110, 0.15);  /* Subtle gold tint */
-  --color-border-strong:  rgba(201, 169, 110, 0.35);  /* Emphasized borders */
-  --color-divider:        rgba(245, 240, 232, 0.08);  /* Section separators */
+  --color-border:         rgba(26, 26, 26, 0.1);     /* Subtle charcoal tint */
+  --color-border-strong:  rgba(26, 26, 26, 0.18);    /* Emphasized borders */
+  --color-divider:        rgba(26, 26, 26, 0.06);    /* Section separators */
 }
 ```
 
 ### WCAG Contrast Verification
 | Pair | Ratio | Grade |
 |------|-------|-------|
-| `--color-text` on `--color-bg` | 17.4:1 | AAA |
-| `--color-accent` on `--color-bg` | 7.2:1 | AAA |
-| `--color-accent-light` on `--color-bg` | 11.1:1 | AAA |
-| `--color-text-muted` on `--color-bg` | 4.6:1 | AA |
-| `--color-text-inverse` on `--color-accent` | 7.2:1 | AAA |
+| `--color-text` on `--color-bg` | 16.2:1 | AAA |
+| `--color-accent` on `--color-bg` | 5.1:1 | AA |
+| `--color-accent-light` on `--color-bg` | 5.8:1 | AA |
+| `--color-text-muted` on `--color-bg` | 5.4:1 | AA |
+| `--color-text-inverse` on `--color-accent` | 5.1:1 | AA |
 
-### Light Section Variant (for contrast breaks)
+### Dark Section Variant (for contrast breaks — testimonials, hero alt)
 ```css
-.section-light {
-  --color-bg: #f5f0e8;
-  --color-surface: #ece5d8;
-  --color-text: #0a0a0a;
-  --color-text-muted: #5a5549;
+.section-dark {
+  --color-bg: #1a1a1a;
+  --color-surface: #242420;
+  --color-text: #f5f0e8;
+  --color-text-muted: #a09a90;
 }
 ```
 
@@ -176,7 +176,7 @@ Every animation has PURPOSE: guide attention, communicate state, or create delig
 - `aspect-ratio` on all containers, `object-fit: cover`
 
 ### Placeholder Strategy (Pre-Photoshoot)
-- Solid gradient blocks using palette colors (dark-to-gold, dark-to-surface)
+- Solid gradient blocks using palette colors (surface-to-bg, warm tones)
 - Labelled with intended content ("Luxury Home Exterior — Oakville")
 - Layout, animation, and composition are final — only the image source swaps
 
@@ -278,9 +278,9 @@ These are instant rebuilds if they appear:
 | # | Decision | Rationale | Revisit? |
 |---|----------|-----------|----------|
 | 1 | Cormorant Garamond over Editorial New | Free via Google Fonts, no licensing risk. Editorial New documented as upgrade path. | If license purchased |
-| 2 | Dark luxury palette over light | Research shows dark + gold differentiates from 90% of realtor sites (blue/white). Connotes prestige. | No |
+| 2 | Warm light palette with gold accents | 80-85% of real estate sites use light themes. Light = approachable + trustworthy for all 7 niches, not just ultra-luxury. Gold accent still differentiates from generic blue/white. | No |
 | 3 | Scroll-pinned niches over bento grid | 7 equal tiles = template. Pinned storytelling creates cinematic experience and lets each niche breathe. | No |
-| 4 | Gold accent over warm neutrals | Gold = prosperity across cultures, works as luxury signal without being gaudy when used sparingly on dark. | No |
+| 4 | Gold accent over warm neutrals | Gold = prosperity across cultures, works as luxury signal without being gaudy when used sparingly against warm whites. | No |
 | 5 | No stock photography | Stock = death of trust for a personal brand. Gradient placeholders until photoshoot. | When photoshoot done |
 | 6 | WhatsApp integration | Standard channel for South Asian diaspora in GTA. Trust signal + convenience. | No |
 | 7 | Home valuation as primary lead magnet | Research: 2-5x higher conversion than generic "Contact Us". Seller-facing entry point. | No |

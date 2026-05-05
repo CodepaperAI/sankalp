@@ -63,7 +63,7 @@ export function Navbar() {
         </a>
         <Link
           href="/book"
-          className="text-[0.7rem] tracking-[0.15em] uppercase font-semibold px-5 py-3 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:scale-[1.03] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] transition-all duration-300"
+          className="text-[0.7rem] tracking-[0.15em] uppercase font-semibold px-5 py-3 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:scale-[1.03] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] transition-all duration-300"
         >
           Book Consultation
         </Link>

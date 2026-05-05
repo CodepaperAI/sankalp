@@ -56,7 +56,7 @@ export function NichePageTemplate({
               <MagneticButton
                 as="a"
                 href={ctaHref}
-                className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] transition-shadow duration-300"
+                className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] transition-shadow duration-300"
               >
                 {ctaText}
               </MagneticButton>
@@ -67,9 +67,9 @@ export function NichePageTemplate({
           <ScrollReveal delay={0.2} direction="right">
             <div
               className="aspect-[4/5] border border-[var(--color-border)] flex items-center justify-center relative overflow-hidden"
-              style={{ background: "linear-gradient(135deg, #1a1815 0%, #2a2520 50%, #1a1610 100%)" }}
+              style={{ background: "linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface) 50%, var(--color-bg) 100%)" }}
             >
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_60%,rgba(201,169,110,0.06)_0%,transparent_60%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_60%,rgba(184,150,12,0.04)_0%,transparent_60%)]" />
               <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center opacity-50 px-4">
                 {imagePlaceholder}
               </p>
@@ -118,7 +118,7 @@ export function NichePageTemplate({
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] hover:scale-[1.03] transition-all duration-300"
           >
             Book a Consultation
           </Link>

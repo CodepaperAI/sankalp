@@ -12,10 +12,10 @@ export function Referral() {
             className="aspect-[3/4] border border-[var(--color-border)] flex items-center justify-center relative overflow-hidden"
             style={{
               background:
-                "linear-gradient(160deg, rgba(201,169,110,0.08) 0%, var(--color-surface) 100%)",
+                "linear-gradient(160deg, rgba(184,150,12,0.05) 0%, var(--color-surface) 100%)",
             }}
           >
-            <div className="absolute w-[200px] h-[200px] bg-[radial-gradient(circle,rgba(201,169,110,0.1)_0%,transparent_70%)] blur-[40px]" />
+            <div className="absolute w-[200px] h-[200px] bg-[radial-gradient(circle,rgba(184,150,12,0.05)_0%,transparent_70%)] blur-[40px]" />
             <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center opacity-50 px-4">
               Community event photography<br />— to be sourced
             </p>
@@ -38,7 +38,7 @@ export function Referral() {
           <MagneticButton
             as="a"
             href="/refer"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(201,169,110,0.35)] transition-shadow duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] transition-shadow duration-300"
           >
             Make a Referral
           </MagneticButton>

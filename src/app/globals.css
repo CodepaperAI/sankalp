@@ -4,30 +4,30 @@
    DESIGN TOKENS — from DESIGN.md
    ============================================ */
 :root {
-  /* Backgrounds */
-  --color-bg: #0a0a0a;
-  --color-surface: #141414;
-  --color-surface-raised: #1e1e1e;
+  /* Backgrounds — warm light */
+  --color-bg: #faf8f5;
+  --color-surface: #f0ede8;
+  --color-surface-raised: #ffffff;
 
   /* Gold Accent */
-  --color-accent: #c9a96e;
-  --color-accent-light: #e2d1a2;
-  --color-accent-dim: #8b7748;
+  --color-accent: #b8960c;
+  --color-accent-light: #8b7748;
+  --color-accent-dim: #d4c5a9;
 
-  /* Text */
-  --color-text: #f5f0e8;
-  --color-text-muted: #8a8577;
-  --color-text-inverse: #0a0a0a;
+  /* Text — charcoal */
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b6560;
+  --color-text-inverse: #faf8f5;
 
   /* Semantic */
-  --color-success: #4a7c59;
-  --color-error: #c45d5d;
-  --color-info: #5d7f9e;
+  --color-success: #3d6b4a;
+  --color-error: #b54a4a;
+  --color-info: #4a6d8a;
 
   /* Borders */
-  --color-border: rgba(201, 169, 110, 0.15);
-  --color-border-strong: rgba(201, 169, 110, 0.35);
-  --color-divider: rgba(245, 240, 232, 0.08);
+  --color-border: rgba(26, 26, 26, 0.1);
+  --color-border-strong: rgba(26, 26, 26, 0.18);
+  --color-divider: rgba(26, 26, 26, 0.06);
 
   /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,12 +38,15 @@
   --section-gap: clamp(6rem, 10vw, 10rem);
 }
 
-/* Light section variant */
-.section-light {
-  --color-bg: #f5f0e8;
-  --color-surface: #ece5d8;
-  --color-text: #0a0a0a;
-  --color-text-muted: #5a5549;
+/* Dark section variant (for contrast breaks) */
+.section-dark {
+  --color-bg: #1a1a1a;
+  --color-surface: #242420;
+  --color-text: #f5f0e8;
+  --color-text-muted: #a09a90;
+  --color-border: rgba(201, 169, 110, 0.15);
+  --color-border-strong: rgba(201, 169, 110, 0.3);
+  --color-divider: rgba(245, 240, 232, 0.08);
 }
 
 /* ============================================
@@ -83,20 +86,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Noise texture overlay for richness */
+/* Subtle noise texture for warmth */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.03;
+  opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Selection color */
 ::selection {
-  background: rgba(201, 169, 110, 0.3);
+  background: rgba(184, 150, 12, 0.15);
   color: var(--color-text);
 }
 
