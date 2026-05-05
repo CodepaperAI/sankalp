@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ReferContent } from "./refer-content";
 
 export const metadata: Metadata = {
   title: "Refer a Friend",
@@ -8,16 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ReferPage() {
-  return (
-    <div className="min-h-screen flex items-center justify-center px-6">
-      <div className="text-center">
-        <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-4">
-          Referral
-        </p>
-        <h1 className="font-[family-name:var(--font-display)] text-4xl font-light">
-          Refer a Friend
-        </h1>
-      </div>
-    </div>
-  );
+  return <ReferContent />;
 }

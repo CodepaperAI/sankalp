@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SoldContent } from "./sold-content";
 
 export const metadata: Metadata = {
   title: "Recently Sold Properties",
@@ -8,16 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function SoldPage() {
-  return (
-    <div className="min-h-screen flex items-center justify-center px-6">
-      <div className="text-center">
-        <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-4">
-          Transactions
-        </p>
-        <h1 className="font-[family-name:var(--font-display)] text-4xl font-light">
-          Results Speak
-        </h1>
-      </div>
-    </div>
-  );
+  return <SoldContent />;
 }
