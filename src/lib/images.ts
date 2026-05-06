@@ -34,6 +34,16 @@ export const images = {
   // About / referral
   community: "/images/about/community.jpg",
   agent: "/images/about/agent.jpg",
+
+  // Page heroes
+  heroSelling: "/images/hero/selling.jpg",
+  heroBuying: "/images/hero/buying.jpg",
+  heroContact: "/images/hero/contact.jpg",
+  heroBook: "/images/hero/book.jpg",
+  heroValuation: "/images/hero/valuation.jpg",
+  heroSold: "/images/hero/sold.jpg",
+  heroJournal: "/images/hero/journal.jpg",
+  heroRefer: "/images/hero/refer.jpg",
 } as const;
 
 export const nicheImages: Record<string, string> = {

@@ -63,7 +63,7 @@ function NicheItem({ niche, index }: { niche: (typeof niches)[0]; index: number;
 
       <div className={`py-4 ${!isEven ? "lg:[direction:ltr]" : ""}`}>
         <ScrollReveal delay={0.1}>
-          <span className="font-[family-name:var(--font-display)] text-[4rem] lg:text-[5rem] font-light leading-none text-[rgba(184,150,12,0.08)] block mb-3">{niche.number}</span>
+          <span className="font-[family-name:var(--font-display)] text-[4rem] lg:text-[5rem] font-light leading-none text-[rgba(45,90,61,0.06)] block mb-3">{niche.number}</span>
           <h3 className="font-[family-name:var(--font-display)] text-[clamp(1.75rem,3vw,2.5rem)] font-normal text-[var(--color-accent-light)] mb-4">{niche.name}</h3>
           <p className="text-[var(--color-text-muted)] leading-[1.8] max-w-[400px] mb-6">{niche.description}</p>
           <Link href={niche.href} className="inline-flex items-center gap-3 text-[0.75rem] tracking-[0.15em] uppercase text-[var(--color-accent)] font-medium group">

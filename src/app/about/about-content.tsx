@@ -1,6 +1,7 @@
 "use client";
 
 import { ScrollReveal, TextReveal, StatsCounter } from "@/components/animations";
+import { PageHero } from "@/components/sections/page-hero";
 import { images } from "@/lib/images";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,22 +34,14 @@ const stats = [
 
 export function AboutContent() {
   return (
-    <div className="pt-32">
-      {/* Hero section — 70/30 split */}
-      <section className="px-6 lg:px-16 xl:px-24 pb-[var(--section-gap)]">
+    <div>
+      <PageHero eyebrow="About" title="Real estate is personal. It should feel that way." imageSrc={images.agent} imageAlt="Sankalp — GTA Real Estate Professional" />
+
+      {/* Bio section — 70/30 split */}
+      <section className="px-6 lg:px-16 xl:px-24 py-[var(--section-gap)]">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-12 lg:gap-20 items-start">
           {/* Text */}
           <div>
-            <ScrollReveal>
-              <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-                About
-              </p>
-            </ScrollReveal>
-            <TextReveal
-              text="Real estate is personal. It should feel that way."
-              as="h1"
-              className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] mb-8"
-            />
             <ScrollReveal delay={0.3}>
               <div className="space-y-6 text-[var(--color-text-muted)] leading-[1.8] max-w-[560px]">
                 <p>
@@ -154,7 +147,7 @@ export function AboutContent() {
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(45,90,61,0.15)] hover:scale-[1.03] transition-all duration-300"
           >
             Book a Consultation
           </Link>

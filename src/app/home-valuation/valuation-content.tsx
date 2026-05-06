@@ -1,24 +1,17 @@
 "use client";
 
 import { ScrollReveal, TextReveal, MagneticButton } from "@/components/animations";
+import { PageHero } from "@/components/sections/page-hero";
+import { images } from "@/lib/images";
 
 export function HomeValuationContent() {
   return (
-    <div className="pt-32 pb-[var(--section-gap)]">
-      <section className="px-6 lg:px-16 xl:px-24">
+    <div>
+      <PageHero eyebrow="Home Valuation" title="Know what your home is really worth." imageSrc={images.heroValuation} imageAlt="Beautiful home exterior" />
+      <section className="px-6 lg:px-16 xl:px-24 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left — Value prop */}
           <div>
-            <ScrollReveal>
-              <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-                Home Valuation
-              </p>
-            </ScrollReveal>
-            <TextReveal
-              text="Know what your home is really worth."
-              as="h1"
-              className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.1] mb-8"
-            />
             <ScrollReveal delay={0.3}>
               <div className="space-y-4 text-[var(--color-text-muted)] leading-[1.8] max-w-[480px] mb-10">
                 <p>
@@ -93,7 +86,7 @@ export function HomeValuationContent() {
                 </div>
               </div>
 
-              <MagneticButton className="mt-2 self-start text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] transition-shadow duration-300 border-none cursor-pointer">
+              <MagneticButton className="mt-2 self-start text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(45,90,61,0.15)] transition-shadow duration-300 border-none cursor-pointer">
                 Get My Home Valuation
               </MagneticButton>
             </form>

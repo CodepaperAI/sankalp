@@ -30,7 +30,7 @@ export function Testimonials() {
   return (
     <section className="py-[var(--section-gap)] px-6 lg:px-16 xl:px-24 relative">
       {/* Ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(184,150,12,0.03)_0%,transparent_70%)] blur-[80px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(45,90,61,0.03)_0%,transparent_70%)] blur-[80px] pointer-events-none" />
 
       <ScrollReveal>
         <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-4">

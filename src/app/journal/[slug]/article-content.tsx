@@ -80,7 +80,7 @@ export function ArticleContent({ article }: { article: JournalArticle }) {
               </div>
               <Link
                 href="/book"
-                className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-6 py-3 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(184,150,12,0.2)] hover:scale-[1.03] transition-all duration-300"
+                className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-6 py-3 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(45,90,61,0.15)] hover:scale-[1.03] transition-all duration-300"
               >
                 Book a Consultation
               </Link>

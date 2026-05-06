@@ -1,23 +1,16 @@
 "use client";
 
 import { ScrollReveal, TextReveal } from "@/components/animations";
+import { PageHero } from "@/components/sections/page-hero";
 import { articles } from "@/lib/journal";
+import { images } from "@/lib/images";
 import Link from "next/link";
 
 export function JournalContent() {
   return (
-    <div className="pt-32 pb-[var(--section-gap)]">
-      <section className="px-6 lg:px-16 xl:px-24">
-        <ScrollReveal>
-          <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-            Journal
-          </p>
-        </ScrollReveal>
-        <TextReveal
-          text="Insights from the market."
-          as="h1"
-          className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.1] mb-4"
-        />
+    <div>
+      <PageHero eyebrow="Journal" title="Insights from the market." imageSrc={images.heroJournal} imageAlt="Real estate market insights" />
+      <section className="px-6 lg:px-16 xl:px-24 py-16">
         <ScrollReveal delay={0.2}>
           <p className="text-[var(--color-text-muted)] leading-[1.7] max-w-[520px] mb-16">
             Expert analysis, buying guides, and market updates for the Greater

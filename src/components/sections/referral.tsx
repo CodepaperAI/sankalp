@@ -22,7 +22,7 @@ export function Referral() {
           <p className="text-[var(--color-text-muted)] leading-[1.7] text-[0.95rem] mb-8 max-w-[480px]">
             Know someone buying or selling in the GTA? Refer them to Sankalp and receive a personal thank-you gift when the transaction closes. No strings — just gratitude for your trust.
           </p>
-          <MagneticButton as="a" href="/refer" className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(184,150,12,0.2)] transition-shadow duration-300">
+          <MagneticButton as="a" href="/refer" className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(45,90,61,0.15)] transition-shadow duration-300">
             Make a Referral
           </MagneticButton>
         </ScrollReveal>

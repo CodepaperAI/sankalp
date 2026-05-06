@@ -1,24 +1,17 @@
 "use client";
 
 import { ScrollReveal, TextReveal, MagneticButton } from "@/components/animations";
+import { PageHero } from "@/components/sections/page-hero";
+import { images } from "@/lib/images";
 
 export function ReferContent() {
   return (
-    <div className="pt-32 pb-[var(--section-gap)]">
-      <section className="px-6 lg:px-16 xl:px-24">
+    <div>
+      <PageHero eyebrow="Referral Program" title="Great homes deserve great neighbours." imageSrc={images.heroRefer} imageAlt="Community neighbourhood" />
+      <section className="px-6 lg:px-16 xl:px-24 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 lg:gap-24 items-start">
           {/* Left — Why refer */}
           <div>
-            <ScrollReveal>
-              <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-                Referral Program
-              </p>
-            </ScrollReveal>
-            <TextReveal
-              text="Great homes deserve great neighbours."
-              as="h1"
-              className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.1] mb-8"
-            />
             <ScrollReveal delay={0.3}>
               <div className="space-y-4 text-[var(--color-text-muted)] leading-[1.8] max-w-[480px] mb-10">
                 <p>
@@ -93,7 +86,7 @@ export function ReferContent() {
                 </label>
               </div>
 
-              <MagneticButton className="mt-2 self-start text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] transition-shadow duration-300 border-none cursor-pointer">
+              <MagneticButton className="mt-2 self-start text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(45,90,61,0.15)] transition-shadow duration-300 border-none cursor-pointer">
                 Submit Referral
               </MagneticButton>
             </form>

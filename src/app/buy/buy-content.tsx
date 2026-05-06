@@ -1,6 +1,8 @@
 "use client";
 
 import { ScrollReveal, TextReveal } from "@/components/animations";
+import { PageHero } from "@/components/sections/page-hero";
+import { images } from "@/lib/images";
 import Link from "next/link";
 
 const niches = [
@@ -15,18 +17,9 @@ const niches = [
 
 export function BuyContent() {
   return (
-    <div className="pt-32 pb-[var(--section-gap)]">
-      <section className="px-6 lg:px-16 xl:px-24">
-        <ScrollReveal>
-          <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-            Buyers
-          </p>
-        </ScrollReveal>
-        <TextReveal
-          text="Seven ways to find your home."
-          as="h1"
-          className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] mb-4"
-        />
+    <div>
+      <PageHero eyebrow="Buyers" title="Seven ways to find your home." imageSrc={images.heroBuying} imageAlt="GTA luxury home" />
+      <section className="px-6 lg:px-16 xl:px-24 py-16">
         <ScrollReveal delay={0.2}>
           <p className="text-[var(--color-text-muted)] leading-[1.7] max-w-[560px] mb-16">
             No two buyers are the same. That&apos;s why we built seven focused
@@ -72,7 +65,7 @@ export function BuyContent() {
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(184,150,12,0.2)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(45,90,61,0.15)] hover:scale-[1.03] transition-all duration-300"
           >
             Book a Consultation
           </Link>

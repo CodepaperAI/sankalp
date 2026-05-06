@@ -1,7 +1,8 @@
 "use client";
 
 import { ScrollReveal, TextReveal } from "@/components/animations";
-import { propertyImages } from "@/lib/images";
+import { PageHero } from "@/components/sections/page-hero";
+import { propertyImages, images } from "@/lib/images";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,19 +20,10 @@ const soldProperties = [
 
 export function SoldContent() {
   return (
-    <div className="pt-32 pb-[var(--section-gap)]">
-      <section className="px-6 lg:px-16 xl:px-24">
+    <div>
+      <PageHero eyebrow="Recent Transactions" title="Results that speak for themselves." imageSrc={images.heroSold} imageAlt="Sold luxury property" />
+      <section className="px-6 lg:px-16 xl:px-24 py-16">
         <ScrollReveal>
-          <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-            Recent Transactions
-          </p>
-        </ScrollReveal>
-        <TextReveal
-          text="Results that speak for themselves."
-          as="h1"
-          className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.1] mb-4"
-        />
-        <ScrollReveal delay={0.2}>
           <p className="text-[var(--color-text-muted)] leading-[1.7] max-w-[520px] mb-16">
             A selection of recent transactions across the GTA. Each one
             represents a family&apos;s trust — and a commitment honoured.
@@ -91,7 +83,7 @@ export function SoldContent() {
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(184,150,12,0.2)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(45,90,61,0.15)] hover:scale-[1.03] transition-all duration-300"
           >
             Book a Consultation
           </Link>
