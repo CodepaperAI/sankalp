@@ -1,7 +1,9 @@
 "use client";
 
 import { ScrollReveal, TextReveal, StatsCounter } from "@/components/animations";
+import { neighbourhoodImages } from "@/lib/images";
 import type { Neighbourhood } from "@/lib/neighbourhoods";
+import Image from "next/image";
 import Link from "next/link";
 
 export function NeighbourhoodContent({
@@ -32,14 +34,17 @@ export function NeighbourhoodContent({
           </p>
         </ScrollReveal>
 
-        {/* Image placeholder */}
+        {/* Hero image */}
         <ScrollReveal delay={0.3}>
-          <div
-            className="w-full aspect-[21/9] border border-[var(--color-border)] flex items-center justify-center bg-[var(--color-surface)]"
-          >
-            <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] opacity-50">
-              {n.name} aerial / streetscape photography — to be sourced
-            </p>
+          <div className="w-full aspect-[21/9] relative overflow-hidden">
+            <Image
+              src={neighbourhoodImages[n.slug] || "/images/hero/luxury-home.jpg"}
+              alt={`${n.name} neighbourhood`}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
           </div>
         </ScrollReveal>
       </section>

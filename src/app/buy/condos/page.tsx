@@ -26,7 +26,8 @@ export default function CondosPage() {
       ]}
       ctaText="Find Your Condo"
       ctaHref="/book"
-      imagePlaceholder="Modern condo interior with city view — to be sourced"
+      imagePlaceholder="Modern condo interior"
+      imageSrc="/images/niches/condos.jpg"
     />
   );
 }

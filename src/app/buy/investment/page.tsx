@@ -26,7 +26,8 @@ export default function InvestmentPage() {
       ]}
       ctaText="Discuss Your Portfolio"
       ctaHref="/book"
-      imagePlaceholder="Multi-unit investment property — to be sourced"
+      imagePlaceholder="Investment property"
+      imageSrc="/images/niches/investment.jpg"
     />
   );
 }

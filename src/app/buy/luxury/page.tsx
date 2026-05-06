@@ -26,7 +26,8 @@ export default function LuxuryPage() {
       ]}
       ctaText="Explore Luxury Listings"
       ctaHref="/book"
-      imagePlaceholder="Luxury estate twilight exterior — to be sourced"
+      imagePlaceholder="Luxury estate"
+      imageSrc="/images/niches/luxury.jpg"
     />
   );
 }

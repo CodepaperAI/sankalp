@@ -1,6 +1,8 @@
 "use client";
 
 import { ScrollReveal, TextReveal, StatsCounter } from "@/components/animations";
+import { images } from "@/lib/images";
+import Image from "next/image";
 import Link from "next/link";
 
 const values = [
@@ -74,20 +76,14 @@ export function AboutContent() {
 
           {/* Portrait */}
           <ScrollReveal delay={0.2} direction="right">
-            <div
-              className="aspect-[3/4] border border-[var(--color-border)] flex flex-col items-center justify-center gap-6 relative overflow-hidden sticky top-32"
-              style={{
-                background: "linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%)",
-              }}
-            >
-              <div className="absolute w-[250px] h-[250px] bg-[radial-gradient(circle,rgba(184,150,12,0.05)_0%,transparent_70%)] blur-[50px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-              <div
-                className="w-[140px] h-[180px] rounded-[50%_50%_45%_45%] opacity-60"
-                style={{ background: "radial-gradient(ellipse at 50% 30%, var(--color-accent-dim) 0%, var(--color-bg) 100%)" }}
+            <div className="aspect-[3/4] relative overflow-hidden sticky top-32">
+              <Image
+                src={images.agent}
+                alt="Sankalp — GTA Real Estate Professional"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 35vw"
               />
-              <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center leading-relaxed">
-                Environmental portrait<br />to be commissioned
-              </p>
             </div>
           </ScrollReveal>
         </div>

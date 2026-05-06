@@ -26,7 +26,8 @@ export default function DownsizingPage() {
       ]}
       ctaText="Start the Conversation"
       ctaHref="/book"
-      imagePlaceholder="Comfortable downsized home interior — to be sourced"
+      imagePlaceholder="Comfortable home"
+      imageSrc="/images/niches/downsizing.jpg"
     />
   );
 }

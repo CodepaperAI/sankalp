@@ -26,7 +26,8 @@ export default function FirstTimeBuyersPage() {
       ]}
       ctaText="Start Your Search"
       ctaHref="/book"
-      imagePlaceholder="First home celebration photography — to be sourced"
+      imagePlaceholder="First home celebration photography"
+      imageSrc="/images/niches/first-time.jpg"
     />
   );
 }

@@ -1,6 +1,8 @@
 "use client";
 
 import { ScrollReveal, TextReveal } from "@/components/animations";
+import { propertyImages } from "@/lib/images";
+import Image from "next/image";
 import Link from "next/link";
 
 const soldProperties = [
@@ -46,17 +48,18 @@ export function SoldContent() {
                 i === 0 || i === 8 ? "md:col-span-2 lg:col-span-1" : ""
               }`}
             >
-              {/* Image placeholder */}
-              <div
-                className="aspect-[16/10] border border-[var(--color-border)] mb-5 flex items-center justify-center relative overflow-hidden group-hover:border-[var(--color-border-strong)] transition-colors duration-300"
-                style={{ background: "linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface) 100%)" }}
-              >
-                <span className="absolute top-3 left-3 text-[0.55rem] tracking-[0.2em] uppercase font-semibold px-2 py-1 bg-[var(--color-success)] text-[var(--color-text)]">
+              {/* Property image */}
+              <div className="aspect-[16/10] relative overflow-hidden mb-5 group-hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src={propertyImages[i % propertyImages.length]}
+                  alt={`${property.address}, ${property.area}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <span className="absolute top-3 left-3 z-10 text-[0.55rem] tracking-[0.2em] uppercase font-semibold px-2 py-1 bg-[var(--color-success)] text-white">
                   Sold
                 </span>
-                <p className="text-[0.55rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] opacity-30">
-                  Photography — {property.area}
-                </p>
               </div>
 
               <div className="flex items-start justify-between gap-4">

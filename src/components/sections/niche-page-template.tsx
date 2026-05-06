@@ -1,6 +1,7 @@
 "use client";
 
 import { ScrollReveal, TextReveal, MagneticButton } from "@/components/animations";
+import Image from "next/image";
 import Link from "next/link";
 
 interface NichePageProps {
@@ -12,6 +13,7 @@ interface NichePageProps {
   ctaText: string;
   ctaHref: string;
   imagePlaceholder: string;
+  imageSrc?: string;
 }
 
 export function NichePageTemplate({
@@ -23,6 +25,7 @@ export function NichePageTemplate({
   ctaText,
   ctaHref,
   imagePlaceholder,
+  imageSrc,
 }: NichePageProps) {
   return (
     <div className="pt-32">
@@ -63,16 +66,16 @@ export function NichePageTemplate({
             </ScrollReveal>
           </div>
 
-          {/* Image placeholder */}
+          {/* Image */}
           <ScrollReveal delay={0.2} direction="right">
-            <div
-              className="aspect-[4/5] border border-[var(--color-border)] flex items-center justify-center relative overflow-hidden"
-              style={{ background: "linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface) 50%, var(--color-bg) 100%)" }}
-            >
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_40%_60%,rgba(184,150,12,0.04)_0%,transparent_60%)]" />
-              <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center opacity-50 px-4">
-                {imagePlaceholder}
-              </p>
+            <div className="aspect-[4/5] relative overflow-hidden">
+              <Image
+                src={imageSrc || "/images/hero/luxury-home.jpg"}
+                alt={imagePlaceholder}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+              />
             </div>
           </ScrollReveal>
         </div>

@@ -26,7 +26,8 @@ export default function PreConstructionPage() {
       ]}
       ctaText="See Current Projects"
       ctaHref="/book"
-      imagePlaceholder="Pre-construction showroom render — to be sourced"
+      imagePlaceholder="Pre-construction"
+      imageSrc="/images/niches/pre-construction.jpg"
     />
   );
 }

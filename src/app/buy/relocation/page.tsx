@@ -26,7 +26,8 @@ export default function RelocationPage() {
       ]}
       ctaText="Plan Your Move"
       ctaHref="/book"
-      imagePlaceholder="GTA community streetscape — to be sourced"
+      imagePlaceholder="GTA community"
+      imageSrc="/images/niches/relocation.jpg"
     />
   );
 }

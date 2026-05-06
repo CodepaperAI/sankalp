@@ -2,6 +2,8 @@
 
 import { ScrollReveal, TextReveal } from "@/components/animations";
 import { neighbourhoods } from "@/lib/neighbourhoods";
+import { neighbourhoodImages } from "@/lib/images";
+import Image from "next/image";
 import Link from "next/link";
 
 export function CommunitiesContent() {
@@ -37,15 +39,14 @@ export function CommunitiesContent() {
               }`}
             >
               <Link href={`/communities/${n.slug}`} className="block p-8 lg:p-10 h-full">
-                {/* Image placeholder */}
-                <div
-                  className={`w-full border border-[var(--color-border)] flex items-center justify-center bg-[var(--color-surface)] mb-6 group-hover:border-[var(--color-border-strong)] transition-colors duration-300 ${
-                    i === 0 ? "aspect-[21/9]" : "aspect-[16/10]"
-                  }`}
-                >
-                  <p className="text-[0.55rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] opacity-40">
-                    {n.name} photography
-                  </p>
+                <div className={`w-full relative overflow-hidden mb-6 ${i === 0 ? "aspect-[21/9]" : "aspect-[16/10]"}`}>
+                  <Image
+                    src={neighbourhoodImages[n.slug] || "/images/hero/luxury-home.jpg"}
+                    alt={`${n.name} neighbourhood`}
+                    fill
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                    sizes={i === 0 ? "100vw" : "(max-width: 768px) 100vw, 33vw"}
+                  />
                 </div>
 
                 <p className="text-[0.6rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-2">

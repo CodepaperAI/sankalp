@@ -2,6 +2,8 @@
 
 import { motion } from "motion/react";
 import { MagneticButton } from "@/components/animations";
+import { images } from "@/lib/images";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Hero() {
@@ -70,23 +72,22 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Portrait Side */}
+      {/* Image Side */}
       <motion.div
-        className="hidden lg:flex relative items-center justify-center bg-[var(--color-surface)]"
+        className="hidden lg:block relative overflow-hidden"
         initial={{ clipPath: "inset(0 0 0 100%)" }}
         animate={{ clipPath: "inset(0 0 0 0%)" }}
         transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Ambient warmth */}
-        <div className="absolute w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(184,150,12,0.06)_0%,transparent_70%)] blur-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-
-        {/* Portrait placeholder */}
-        <div className="w-[280px] h-[380px] border border-[var(--color-border)] bg-[var(--color-bg)] flex flex-col items-center justify-center gap-6 relative">
-          <div className="w-[120px] h-[160px] rounded-[50%_50%_45%_45%] opacity-40 bg-[var(--color-accent-dim)]" />
-          <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center leading-relaxed">
-            Portrait to be<br />commissioned
-          </p>
-        </div>
+        <Image
+          src={images.heroLuxuryHome}
+          alt="Luxury home in the Greater Toronto Area"
+          fill
+          className="object-cover"
+          priority
+          sizes="(max-width: 1024px) 0vw, 42vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[var(--color-bg)] opacity-15" />
       </motion.div>
 
       {/* Scroll indicator */}
