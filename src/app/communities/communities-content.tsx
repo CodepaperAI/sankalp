@@ -9,24 +9,41 @@ import Link from "next/link";
 export function CommunitiesContent() {
   return (
     <div className="pt-32 pb-[var(--section-gap)]">
-      <section className="px-6 lg:px-16 xl:px-24">
-        <ScrollReveal>
-          <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-6">
-            Communities
-          </p>
-        </ScrollReveal>
-        <TextReveal
-          text="Know the neighbourhood before you buy."
-          as="h1"
-          className="font-[family-name:var(--font-display)] text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.1] mb-4"
+      <section className="relative px-6 lg:px-16 xl:px-24 overflow-hidden">
+        {/* Ambient blob */}
+        <div
+          aria-hidden
+          className="absolute -top-20 -right-40 w-[520px] h-[520px] rounded-full opacity-[0.05] blur-3xl pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(45,90,61,1) 0%, transparent 70%)",
+          }}
         />
-        <ScrollReveal delay={0.2}>
-          <p className="text-[var(--color-text-muted)] leading-[1.7] max-w-[560px] mb-16">
-            Every GTA neighbourhood has its own character, market dynamics, and
-            lifestyle. These guides go beyond listings — schools, commute,
-            amenities, and the things only a local would know.
-          </p>
-        </ScrollReveal>
+
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14 lg:mb-20">
+          <div className="lg:col-span-7">
+            <ScrollReveal>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="w-12 h-px bg-[var(--color-accent)]" />
+                <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
+                  Communities
+                </p>
+              </div>
+            </ScrollReveal>
+            <TextReveal
+              text="Know the neighbourhood before you buy."
+              as="h1"
+              className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-[1.05]"
+            />
+          </div>
+          <ScrollReveal delay={0.2} className="lg:col-span-5">
+            <p className="text-[var(--color-text-muted)] leading-[1.75] text-[1rem]">
+              Every GTA neighbourhood has its own character, market dynamics,
+              and lifestyle. These guides go beyond listings — schools, commute,
+              amenities, and the things only a local would know.
+            </p>
+          </ScrollReveal>
+        </div>
 
         {/* Community grid — asymmetric */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--color-divider)]">

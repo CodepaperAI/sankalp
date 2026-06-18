@@ -15,8 +15,9 @@
   --color-accent-dim: #d4e4d9;
 
   /* Text — soft charcoal */
-  --color-text: #2c2c2c;
-  --color-text-muted: #7a7467;
+  --color-text: #1f1f1f;
+  --color-text-muted: #6b6557;
+  --color-text-soft: #8a8479;
   --color-text-inverse: #faf7f2;
 
   /* Semantic */
@@ -35,7 +36,8 @@
   --ease-in-out-custom: cubic-bezier(0.65, 0, 0.35, 1);
 
   /* Section spacing */
-  --section-gap: clamp(6rem, 10vw, 10rem);
+  --section-gap: clamp(5.5rem, 9vw, 9rem);
+  --content-gutter: clamp(1.5rem, 5vw, 6rem);
 }
 
 /* Dark section variant (for contrast breaks — testimonials, hero alt) */
@@ -63,6 +65,7 @@
   --color-accent-dim: var(--color-accent-dim);
   --color-text: var(--color-text);
   --color-text-muted: var(--color-text-muted);
+  --color-text-soft: var(--color-text-soft);
   --color-text-inverse: var(--color-text-inverse);
   --color-success: var(--color-success);
   --color-error: var(--color-error);
@@ -77,12 +80,46 @@
 /* ============================================
    BASE STYLES
    ============================================ */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body), system-ui, sans-serif;
+  font-feature-settings: "ss01", "kern";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Better default heading typography */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Display serif tracking refinement */
+.font-\[family-name\:var\(--font-display\)\] {
+  letter-spacing: -0.008em;
+  font-feature-settings: "liga", "kern", "calt";
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Better focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 1px;
 }
 
 /* Subtle noise texture for warmth */
@@ -112,7 +149,7 @@ html { scroll-behavior: smooth; }
   }
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+/* Smooth section transitions */
+section {
+  scroll-margin-top: 100px;
 }

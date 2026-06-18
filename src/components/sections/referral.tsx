@@ -20,7 +20,9 @@ export function Referral() {
             Great homes deserve<br />great neighbours.
           </h2>
           <p className="text-[var(--color-text-muted)] leading-[1.7] text-[0.95rem] mb-8 max-w-[480px]">
-            Know someone buying or selling in the GTA? Refer them to Sankalp and receive a personal thank-you gift when the transaction closes. No strings — just gratitude for your trust.
+            Know someone buying or selling in the GTA? Send them our way. When the
+            transaction closes, you&apos;ll receive a personal thank-you — no points,
+            no kickbacks, just gratitude for the trust.
           </p>
           <MagneticButton as="a" href="/refer" className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(45,90,61,0.15)] transition-shadow duration-300">
             Make a Referral

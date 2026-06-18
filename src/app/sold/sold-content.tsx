@@ -22,13 +22,37 @@ export function SoldContent() {
   return (
     <div>
       <PageHero eyebrow="Recent Transactions" title="Results that speak for themselves." imageSrc={images.heroSold} imageAlt="Sold luxury property" />
-      <section className="px-6 lg:px-16 xl:px-24 py-16">
-        <ScrollReveal>
-          <p className="text-[var(--color-text-muted)] leading-[1.7] max-w-[520px] mb-16">
-            A selection of recent transactions across the GTA. Each one
-            represents a family&apos;s trust — and a commitment honoured.
-          </p>
-        </ScrollReveal>
+      <section className="relative px-6 lg:px-16 xl:px-24 py-16 lg:py-24 overflow-hidden">
+        {/* Ambient blob */}
+        <div
+          aria-hidden
+          className="absolute -top-20 -left-40 w-[520px] h-[520px] rounded-full opacity-[0.05] blur-3xl pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(45,90,61,1) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14 lg:mb-20">
+          <ScrollReveal className="lg:col-span-7">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="w-12 h-px bg-[var(--color-accent)]" />
+              <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
+                Closed Deals &nbsp;·&nbsp; 2024 — 2025
+              </p>
+            </div>
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.5rem)] font-light leading-[1.05]">
+              Each address is a family&apos;s{" "}
+              <em className="italic text-[var(--color-accent-light)]">trust honoured.</em>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15} className="lg:col-span-5">
+            <p className="text-[var(--color-text-muted)] leading-[1.75] text-[1rem]">
+              A selection of recent transactions from across the GTA — every
+              property type, every neighbourhood, every chapter different.
+            </p>
+          </ScrollReveal>
+        </div>
 
         {/* Transactions grid — bento style */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--color-divider)]">

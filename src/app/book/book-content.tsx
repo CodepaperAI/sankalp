@@ -1,13 +1,18 @@
 "use client";
 
-import { ScrollReveal, TextReveal, MagneticButton } from "@/components/animations";
+import { ScrollReveal, MagneticButton } from "@/components/animations";
 import { PageHero } from "@/components/sections/page-hero";
 import { images } from "@/lib/images";
 
 export function BookContent() {
   return (
     <div>
-      <PageHero eyebrow="Book a Consultation" title="Let's talk about what home means to you." imageSrc={images.heroBook} imageAlt="Welcoming home interior" />
+      <PageHero
+        eyebrow="Book a Consultation"
+        title="Let's talk about what home means to you."
+        imageSrc={images.heroBook}
+        imageAlt="Real estate consultation at a bright office desk"
+      />
       <section className="px-6 lg:px-16 xl:px-24 py-16">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal delay={0.3}>
@@ -25,16 +30,34 @@ export function BookContent() {
               onSubmit={(e) => e.preventDefault()}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <FormField label="Full Name" type="text" id="book-name" />
-                <FormField label="Phone Number" type="tel" id="book-phone" />
+                <FormField
+                  label="Full Name"
+                  type="text"
+                  id="book-name"
+                  autoComplete="name"
+                  required
+                />
+                <FormField
+                  label="Phone Number"
+                  type="tel"
+                  id="book-phone"
+                  autoComplete="tel"
+                  required
+                />
               </div>
-              <FormField label="Email Address" type="email" id="book-email" />
+              <FormField
+                label="Email Address"
+                type="email"
+                id="book-email"
+                autoComplete="email"
+                required
+              />
 
               {/* Interest selection */}
-              <div>
-                <p className="text-[0.7rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-3">
+              <fieldset>
+                <legend className="text-[0.7rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-3">
                   I&apos;m interested in
-                </p>
+                </legend>
                 <div className="flex flex-wrap gap-2">
                   {[
                     "Buying",
@@ -46,7 +69,7 @@ export function BookContent() {
                   ].map((option) => (
                     <label
                       key={option}
-                      className="cursor-pointer text-[0.75rem] tracking-[0.1em] px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-light)] transition-all duration-300 has-[:checked]:bg-[var(--color-accent)] has-[:checked]:text-[var(--color-text-inverse)] has-[:checked]:border-[var(--color-accent)]"
+                      className="min-h-11 inline-flex cursor-pointer items-center text-[0.75rem] tracking-[0.1em] px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-light)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--color-accent)] transition-all duration-300 has-[:checked]:bg-[var(--color-accent)] has-[:checked]:text-[var(--color-text-inverse)] has-[:checked]:border-[var(--color-accent)]"
                     >
                       <input
                         type="checkbox"
@@ -58,18 +81,18 @@ export function BookContent() {
                     </label>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
               {/* Preferred time */}
-              <div>
-                <p className="text-[0.7rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-3">
+              <fieldset>
+                <legend className="text-[0.7rem] tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-3">
                   Preferred meeting type
-                </p>
+                </legend>
                 <div className="flex flex-wrap gap-2">
                   {["Phone Call", "Video Call", "In Person"].map((option) => (
                     <label
                       key={option}
-                      className="cursor-pointer text-[0.75rem] tracking-[0.1em] px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-light)] transition-all duration-300 has-[:checked]:bg-[var(--color-accent)] has-[:checked]:text-[var(--color-text-inverse)] has-[:checked]:border-[var(--color-accent)]"
+                      className="min-h-11 inline-flex cursor-pointer items-center text-[0.75rem] tracking-[0.1em] px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-light)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--color-accent)] transition-all duration-300 has-[:checked]:bg-[var(--color-accent)] has-[:checked]:text-[var(--color-text-inverse)] has-[:checked]:border-[var(--color-accent)]"
                     >
                       <input
                         type="radio"
@@ -81,7 +104,7 @@ export function BookContent() {
                     </label>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
               <div className="relative group">
                 <textarea
@@ -89,11 +112,12 @@ export function BookContent() {
                   name="book-notes"
                   rows={3}
                   placeholder=" "
-                  className="peer w-full pt-5 pb-2 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[0.9rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-300 resize-none"
+                  autoComplete="off"
+                  className="peer w-full pt-7 pb-3 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[1rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-400 resize-none"
                 />
                 <label
                   htmlFor="book-notes"
-                  className="absolute left-0 top-5 text-[0.8rem] text-[var(--color-text-muted)] tracking-[0.05em] pointer-events-none transition-all duration-300 peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.15em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)]"
+                  className="absolute left-0 top-7 text-[0.92rem] text-[var(--color-text-muted)] tracking-[0.02em] pointer-events-none transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.18em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-focus:font-medium peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.18em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:font-medium"
                 >
                   Anything else I should know?
                 </label>
@@ -126,7 +150,19 @@ export function BookContent() {
   );
 }
 
-function FormField({ label, type, id }: { label: string; type: string; id: string }) {
+function FormField({
+  label,
+  type,
+  id,
+  autoComplete,
+  required,
+}: {
+  label: string;
+  type: string;
+  id: string;
+  autoComplete?: string;
+  required?: boolean;
+}) {
   return (
     <div className="relative group">
       <input
@@ -134,11 +170,13 @@ function FormField({ label, type, id }: { label: string; type: string; id: strin
         id={id}
         name={id}
         placeholder=" "
-        className="peer w-full pt-5 pb-2 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[0.9rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-300"
+        autoComplete={autoComplete}
+        required={required}
+        className="peer w-full pt-7 pb-3 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[1rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-400"
       />
       <label
         htmlFor={id}
-        className="absolute left-0 top-5 text-[0.8rem] text-[var(--color-text-muted)] tracking-[0.05em] pointer-events-none transition-all duration-300 peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.15em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)]"
+        className="absolute left-0 top-7 text-[0.92rem] text-[var(--color-text-muted)] tracking-[0.02em] pointer-events-none transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.18em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-focus:font-medium peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.18em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:font-medium"
       >
         {label}
       </label>

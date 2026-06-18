@@ -16,14 +16,14 @@ export function LeadCapture() {
             <em className="italic text-[var(--color-accent-light)]">really worth.</em>
           </h2>
           <p className="text-[var(--color-text-muted)] leading-[1.7] text-[0.95rem] mb-8 max-w-[480px]">
-            Get a complimentary, no-obligation market evaluation of your
-            property. Based on real GTA comparables — not automated estimates.
+            A real evaluation, drawn from this month&apos;s GTA comparables. No
+            automated estimates, no obligations — just a number you can plan around.
           </p>
           <div className="space-y-3">
             {[
-              "Response within 24 hours",
-              "Based on recent neighbourhood sales",
-              "No automated estimates — real analysis",
+              "Response within one business day",
+              "Built from recent sales on your block",
+              "Hand-prepared, never algorithm-only",
             ].map((item) => (
               <div key={item} className="flex items-center gap-3">
                 <svg
@@ -82,11 +82,11 @@ function FormField({
         id={id}
         name={id}
         placeholder=" "
-        className="peer w-full pt-5 pb-2 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[0.9rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-300"
+        className="peer w-full pt-7 pb-3 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[1rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-400"
       />
       <label
         htmlFor={id}
-        className="absolute left-0 top-5 text-[0.8rem] text-[var(--color-text-muted)] tracking-[0.05em] pointer-events-none transition-all duration-300 peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.15em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)]"
+        className="absolute left-0 top-7 text-[0.92rem] text-[var(--color-text-muted)] tracking-[0.02em] pointer-events-none transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.18em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-focus:font-medium peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.18em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:font-medium"
       >
         {label}
       </label>

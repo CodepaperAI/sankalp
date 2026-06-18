@@ -105,11 +105,11 @@ function FormField({ label, type, id }: { label: string; type: string; id: strin
         id={id}
         name={id}
         placeholder=" "
-        className="peer w-full pt-5 pb-2 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[0.9rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-300"
+        className="peer w-full pt-7 pb-3 bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] text-[1rem] outline-none focus:border-[var(--color-accent)] transition-colors duration-400"
       />
       <label
         htmlFor={id}
-        className="absolute left-0 top-5 text-[0.8rem] text-[var(--color-text-muted)] tracking-[0.05em] pointer-events-none transition-all duration-300 peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.15em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)]"
+        className="absolute left-0 top-7 text-[0.92rem] text-[var(--color-text-muted)] tracking-[0.02em] pointer-events-none transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] peer-focus:top-0 peer-focus:text-[0.65rem] peer-focus:tracking-[0.18em] peer-focus:uppercase peer-focus:text-[var(--color-accent)] peer-focus:font-medium peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[0.65rem] peer-[:not(:placeholder-shown)]:tracking-[0.18em] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:text-[var(--color-accent)] peer-[:not(:placeholder-shown)]:font-medium"
       >
         {label}
       </label>

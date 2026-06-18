@@ -6,100 +6,122 @@ import { images } from "@/lib/images";
 import Image from "next/image";
 import Link from "next/link";
 
+const serviceNotes = [
+  ["Serving", "Greater Toronto Area"],
+  ["Guidance", "Buy, sell, invest"],
+  ["Approach", "Personal and informed"],
+];
+
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Full-bleed background image */}
+    <section className="relative h-[92svh] min-h-[620px] max-h-[900px] flex items-center overflow-hidden bg-[#17231c]">
       <div className="absolute inset-0 z-0">
         <Image
           src={images.heroLuxuryHome}
           alt="Luxury home in the Greater Toronto Area"
           fill
-          className="object-cover"
+          className="object-cover object-[62%_center] scale-[1.02]"
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#faf7f2]/90 via-[#faf7f2]/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#faf7f2]/30 to-transparent" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(18,31,23,0.96) 0%, rgba(18,31,23,0.82) 34%, rgba(18,31,23,0.28) 65%, rgba(18,31,23,0.08) 100%)",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#101b14]/75 via-transparent to-[#101b14]/25" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 px-6 lg:px-16 xl:px-24 pt-32 pb-16 max-w-3xl">
-        <motion.p
-          className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          Greater Toronto Area&nbsp;&middot;&nbsp;Real Estate
-        </motion.p>
-
-        <h1 className="font-[family-name:var(--font-display)] text-[clamp(3rem,6vw,6rem)] font-light leading-[1.05] mb-6">
-          <span className="overflow-hidden block">
-            <motion.span
-              className="block"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Your Home.
-            </motion.span>
-          </span>
-          <span className="overflow-hidden block">
-            <motion.span
-              className="block italic text-[var(--color-accent)]"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.55, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Your Legacy.
-            </motion.span>
-          </span>
-        </h1>
-
-        <motion.p
-          className="text-[var(--color-text-muted)] max-w-[440px] leading-[1.7] text-[1.05rem] mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Trusted by families across the GTA to find not just a property — but
-          the place where their story continues. Seven specialties. One
-          commitment.
-        </motion.p>
-
-        <motion.div
-          className="flex flex-wrap gap-4 items-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <MagneticButton as="a" href="/home-valuation" className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_24px_rgba(45,90,61,0.25)] transition-shadow duration-300">
-            Get Your Home Valuation
-          </MagneticButton>
-          <Link
-            href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-7 py-4 border border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text-inverse)] transition-all duration-300"
+      <div className="relative z-10 w-full px-6 lg:px-16 xl:px-24 pt-28 pb-32">
+        <div className="max-w-[760px]">
+          <motion.p
+            className="flex items-center gap-4 text-[0.7rem] tracking-[0.2em] uppercase text-white/70 font-semibold mb-7"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Book a Consultation
-          </Link>
-        </motion.div>
+            <span className="w-10 h-px bg-white/45" />
+            Greater Toronto Area
+          </motion.p>
+
+          <h1 className="font-[family-name:var(--font-display)] text-[clamp(3.75rem,8.5vw,8.5rem)] font-light leading-[0.84] text-white mb-8">
+            <span className="overflow-hidden block">
+              <motion.span
+                className="block"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Sankalp
+              </motion.span>
+            </span>
+            <span className="overflow-hidden block">
+              <motion.span
+                className="block italic text-[#b8d3c1]"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.55, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Real Estate.
+              </motion.span>
+            </span>
+          </h1>
+
+          <motion.p
+            className="text-white/78 max-w-[520px] leading-[1.7] text-[1rem] lg:text-[1.08rem] mb-9"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Real estate at the pace of a relationship, not a transaction. From
+            first homes in Brampton to estates on the Bridle Path, every search
+            starts with where you&apos;re going next.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-wrap gap-3 items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <MagneticButton
+              as="a"
+              href="/home-valuation"
+              className="inline-flex min-h-12 items-center text-[0.7rem] tracking-[0.16em] uppercase font-semibold px-6 bg-white text-[var(--color-accent)] hover:bg-[#e8efe9] transition-colors duration-300"
+            >
+              Get Your Home Valuation
+            </MagneticButton>
+            <Link
+              href="/book"
+              className="inline-flex min-h-12 items-center text-[0.7rem] tracking-[0.16em] uppercase font-semibold px-6 border border-white/45 text-white hover:bg-white hover:text-[var(--color-accent)] transition-[background-color,color] duration-300"
+            >
+              Book a Consultation
+            </Link>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        className="absolute z-10 bottom-0 inset-x-0 grid grid-cols-3 border-t border-white/20 bg-[#122017]/45 backdrop-blur-md"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
+        transition={{ delay: 1.1, duration: 0.6 }}
       >
-        <span className="text-[0.6rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)]">Scroll</span>
-        <motion.div
-          className="w-px h-8 bg-[var(--color-accent)]"
-          animate={{ scaleY: [1, 0.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformOrigin: "top" }}
-        />
+        {serviceNotes.map(([label, value]) => (
+          <div
+            key={label}
+            className="min-h-[76px] px-4 lg:px-8 py-4 border-r border-white/15 last:border-r-0"
+          >
+            <span className="block text-[0.57rem] tracking-[0.18em] uppercase text-white/45 mb-1.5">
+              {label}
+            </span>
+            <span className="block text-[0.68rem] lg:text-[0.78rem] text-white/85">
+              {value}
+            </span>
+          </div>
+        ))}
       </motion.div>
     </section>
   );
