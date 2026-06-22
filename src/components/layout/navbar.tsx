@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { href: "/buy", label: "Buy" },
   { href: "/sell", label: "Sell" },
+  { href: "/sold", label: "Sold" },
   { href: "/communities", label: "Communities" },
   { href: "/about", label: "About" },
 ];
@@ -34,6 +35,7 @@ export function Navbar() {
   }, [mobileOpen]);
 
   return (
+    <>
     <nav
       aria-label="Primary navigation"
       className={`fixed inset-x-0 top-0 z-50 h-[76px] px-6 lg:px-12 flex items-center justify-between border-b transition-[background-color,border-color,box-shadow] duration-300 ${
@@ -121,6 +123,7 @@ export function Navbar() {
           />
         ))}
       </button>
+    </nav>
 
       {mobileOpen && (
         <div className="fixed inset-0 top-[76px] z-40 flex flex-col bg-[var(--color-bg)] px-6 py-10 lg:hidden">
@@ -153,6 +156,6 @@ export function Navbar() {
           </Link>
         </div>
       )}
-    </nav>
+    </>
   );
 }

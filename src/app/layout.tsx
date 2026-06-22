@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cormorantGaramond, dmSans } from "@/lib/fonts";
+import { manrope } from "@/lib/fonts";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -74,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${dmSans.variable} h-full`}
+      className={`${manrope.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
         <JsonLd />

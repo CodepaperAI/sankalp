@@ -21,7 +21,7 @@ const flagship: Niche = {
   tagline:
     "Estates and legacy properties across Oakville, King City, Forest Hill, and the Bridle Path.",
   description:
-    "Estates, custom builds, and legacy holdings across the GTA's most discreet enclaves. Off-market access, NDA-bound showings, and the kind of patience these homes deserve — from heritage estates in Forest Hill to architect-led builds on the Bridle Path.",
+    "Estates and legacy properties across the GTA's most discreet enclaves — off-market access, and the patience these homes deserve.",
   href: "/buy/luxury",
   image: "/images/niches/luxury.jpg",
 };
@@ -37,15 +37,6 @@ const supporting: Niche[] = [
     image: "/images/niches/first-time.jpg",
   },
   {
-    number: "03",
-    name: "Pre-Construction",
-    tag: "SPECIALTY",
-    tagline:
-      "Buy before the foundation. Platinum access to the projects worth waiting for.",
-    href: "/buy/pre-construction",
-    image: "/images/niches/pre-construction.jpg",
-  },
-  {
     number: "02",
     name: "Condos",
     tag: "SPECIALTY",
@@ -53,6 +44,15 @@ const supporting: Niche[] = [
       "We know the buildings, the boards, and which floors actually appreciate.",
     href: "/buy/condos",
     image: "/images/niches/condos.jpg",
+  },
+  {
+    number: "03",
+    name: "Pre-Construction",
+    tag: "SPECIALTY",
+    tagline:
+      "Buy before the foundation. Platinum access to the projects worth waiting for.",
+    href: "/buy/pre-construction",
+    image: "/images/niches/pre-construction.jpg",
   },
   {
     number: "04",
@@ -144,6 +144,7 @@ export function Niches() {
         />
         <NicheCard
           niche={supporting[5]}
+          isWide
           layout="col-span-12 lg:col-span-12 lg:row-span-2 aspect-[16/10] md:aspect-[16/7] lg:aspect-auto"
         />
 
@@ -157,10 +158,12 @@ export function Niches() {
 function NicheCard({
   niche,
   isFlagship,
+  isWide,
   layout,
 }: {
   niche: Niche;
   isFlagship?: boolean;
+  isWide?: boolean;
   layout: string;
 }) {
   return (
@@ -182,12 +185,15 @@ function NicheCard({
         }
       />
 
-      {/* Dark gradient veil — 10% top → 85% bottom */}
+      {/* Targeted scrim — image breathes up top, darkens only where text sits.
+          Wide card uses a left-anchored scrim so text reads as an intentional
+          panel and the photo showcases on the right. */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.70) 75%, rgba(0,0,0,0.85) 100%)",
+          background: isWide
+            ? "linear-gradient(100deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.62) 30%, rgba(0,0,0,0.28) 55%, rgba(0,0,0,0.06) 78%, rgba(0,0,0,0.02) 100%)"
+            : "linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.05) 32%, rgba(0,0,0,0.32) 64%, rgba(0,0,0,0.72) 88%, rgba(0,0,0,0.84) 100%)",
         }}
       />
 
@@ -196,6 +202,7 @@ function NicheCard({
         className={`absolute top-5 left-5 lg:top-7 lg:left-7 font-[family-name:var(--font-display)] italic font-light text-white/85 ${
           isFlagship ? "text-[1.05rem] lg:text-[1.2rem]" : "text-[0.95rem]"
         }`}
+        style={{ textShadow: "0 1px 10px rgba(0,0,0,0.45)" }}
       >
         &mdash;&nbsp;{niche.number}
       </span>
@@ -205,6 +212,7 @@ function NicheCard({
         className={`absolute top-5 right-5 lg:top-7 lg:right-7 text-[0.65rem] tracking-[0.22em] uppercase font-semibold ${
           isFlagship ? "text-white/95" : "text-white/75"
         }`}
+        style={{ textShadow: "0 1px 10px rgba(0,0,0,0.45)" }}
       >
         {niche.tag}
       </span>
@@ -214,6 +222,7 @@ function NicheCard({
         className={`absolute inset-x-0 bottom-0 text-white ${
           isFlagship ? "p-7 lg:p-10" : "p-5 lg:p-6"
         }`}
+        style={{ textShadow: "0 1px 16px rgba(0,0,0,0.4)" }}
       >
         <h3
           className={`font-[family-name:var(--font-display)] font-light leading-[1.1] mb-3 ${

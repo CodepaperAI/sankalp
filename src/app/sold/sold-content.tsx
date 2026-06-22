@@ -1,118 +1,190 @@
-"use client";
+﻿"use client";
 
-import { ScrollReveal, TextReveal } from "@/components/animations";
+import { useMemo, useState } from "react";
+import { ScrollReveal } from "@/components/animations";
 import { PageHero } from "@/components/sections/page-hero";
-import { propertyImages, images } from "@/lib/images";
+import { images } from "@/lib/images";
+import { soldResults, soldResultStats, type SoldResult } from "@/lib/sold-results";
 import Image from "next/image";
 import Link from "next/link";
 
-const soldProperties = [
-  { address: "142 Lakeshore Road", area: "Oakville", specs: "4 Bed · 3 Bath · 3,200 sqft", price: "$2,450,000", type: "Detached", niche: "Luxury" },
-  { address: "1 Bloor Street E, PH4", area: "Yorkville", specs: "2 Bed · 2 Bath · 1,800 sqft", price: "$1,890,000", type: "Condo", niche: "Luxury" },
-  { address: "78 Heritage Hills Drive", area: "Brampton", specs: "5 Bed · 4 Bath · 4,100 sqft", price: "$1,350,000", type: "Detached", niche: "Relocation" },
-  { address: "M City Tower 4, Unit 2812", area: "Mississauga", specs: "1+Den · 1 Bath · 650 sqft", price: "$625,000", type: "Condo", niche: "Pre-Construction" },
-  { address: "34 James Street N", area: "Hamilton", specs: "Duplex · 6 Bed · 3 Bath", price: "$890,000", type: "Duplex", niche: "Investment" },
-  { address: "22 Pine Grove Avenue", area: "Oakville", specs: "3 Bed · 2 Bath · 2,400 sqft", price: "$1,680,000", type: "Detached", niche: "Downsizing" },
-  { address: "550 Queens Quay W, #1204", area: "Toronto", specs: "2 Bed · 2 Bath · 950 sqft", price: "$820,000", type: "Condo", niche: "First-Time" },
-  { address: "88 Scott Street, #3601", area: "Toronto", specs: "1 Bed · 1 Bath · 580 sqft", price: "$545,000", type: "Condo", niche: "Investment" },
-  { address: "15 Ravine Drive", area: "King City", specs: "6 Bed · 5 Bath · 5,800 sqft", price: "$3,200,000", type: "Estate", niche: "Luxury" },
-];
+const filters = ["All", "Residential", "Commercial", "Condos", "Townhomes", "Detached"] as const;
+type ResultFilter = (typeof filters)[number];
 
 export function SoldContent() {
+  const [activeFilter, setActiveFilter] = useState<ResultFilter>("All");
+
+  const visibleResults = useMemo(() => {
+    if (activeFilter === "All") return soldResults;
+    if (activeFilter === "Residential" || activeFilter === "Commercial") {
+      return soldResults.filter((result) => result.category === activeFilter);
+    }
+    return soldResults.filter((result) => result.niche === activeFilter);
+  }, [activeFilter]);
+
   return (
     <div>
-      <PageHero eyebrow="Recent Transactions" title="Results that speak for themselves." imageSrc={images.heroSold} imageAlt="Sold luxury property" />
-      <section className="relative px-6 lg:px-16 xl:px-24 py-16 lg:py-24 overflow-hidden">
-        {/* Ambient blob */}
-        <div
-          aria-hidden
-          className="absolute -top-20 -left-40 w-[520px] h-[520px] rounded-full opacity-[0.05] blur-3xl pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(45,90,61,1) 0%, transparent 70%)",
-          }}
-        />
+      <PageHero
+        eyebrow="Sold Results"
+        title="Recent homes, sold."
+        subtitle="A selection of real sales across the Greater Toronto Area and beyond."
+        imageSrc={images.heroSold}
+        imageAlt="Recently sold home in the Greater Toronto Area"
+      />
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14 lg:mb-20">
+      <section className="relative px-6 lg:px-16 xl:px-24 py-16 lg:py-24 overflow-hidden">
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12 lg:mb-16">
           <ScrollReveal className="lg:col-span-7">
             <div className="flex items-center gap-4 mb-6">
               <span className="w-12 h-px bg-[var(--color-accent)]" />
-              <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
-                Closed Deals &nbsp;·&nbsp; 2024 — 2025
+              <p className="text-[0.7rem] tracking-[0.22em] uppercase text-[var(--color-accent)] font-semibold">
+                Verified Sales
               </p>
             </div>
             <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.5rem)] font-light leading-[1.05]">
-              Each address is a family&apos;s{" "}
-              <em className="italic text-[var(--color-accent-light)]">trust honoured.</em>
+              Sold across the GTA.
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.15} className="lg:col-span-5">
             <p className="text-[var(--color-text-muted)] leading-[1.75] text-[1rem]">
-              A selection of recent transactions from across the GTA — every
-              property type, every neighbourhood, every chapter different.
+              Filter by property type below. Every card reflects a real MLS listing &mdash; type, days on market, and tax detail.
             </p>
           </ScrollReveal>
         </div>
 
-        {/* Transactions grid — bento style */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--color-divider)]">
-          {soldProperties.map((property, i) => (
-            <ScrollReveal
-              key={property.address}
-              delay={i * 0.05}
-              className={`bg-[var(--color-bg)] p-6 lg:p-8 group hover:bg-[var(--color-surface)] transition-colors duration-300 ${
-                i === 0 || i === 8 ? "md:col-span-2 lg:col-span-1" : ""
-              }`}
-            >
-              {/* Property image */}
-              <div className="aspect-[16/10] relative overflow-hidden mb-5 group-hover:shadow-md transition-shadow duration-300">
-                <Image
-                  src={propertyImages[i % propertyImages.length]}
-                  alt={`${property.address}, ${property.area}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <span className="absolute top-3 left-3 z-10 text-[0.55rem] tracking-[0.2em] uppercase font-semibold px-2 py-1 bg-[var(--color-success)] text-white">
-                  Sold
-                </span>
-              </div>
+        <ScrollReveal>
+          <div className="grid grid-cols-2 lg:grid-cols-4 border-y border-[var(--color-divider)] mb-10 lg:mb-12">
+            <Stat value={soldResultStats.total} label="Sold Results" />
+            <Stat value={soldResultStats.residential} label="Residential" />
+            <Stat value={soldResultStats.commercial} label="Commercial" />
+            <Stat value={soldResultStats.fastSales} label="Sold in 20 Days or Less" />
+          </div>
+        </ScrollReveal>
 
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="font-[family-name:var(--font-display)] text-lg font-normal mb-1 group-hover:text-[var(--color-accent-light)] transition-colors duration-300">
-                    {property.address}
-                  </p>
-                  <p className="text-[0.75rem] text-[var(--color-text-muted)]">
-                    {property.area} &middot; {property.specs}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="font-[family-name:var(--font-display)] text-lg font-medium text-[var(--color-accent-light)]">
-                    {property.price}
-                  </p>
-                  <p className="text-[0.65rem] tracking-[0.1em] text-[var(--color-text-muted)]">
-                    {property.niche}
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
+        <ScrollReveal className="mb-8">
+          <div className="flex flex-wrap gap-2">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                className={`min-h-11 px-4 text-[0.68rem] tracking-[0.16em] uppercase font-semibold border transition-[background-color,color,border-color] duration-300 ${
+                  activeFilter === filter
+                    ? "bg-[var(--color-accent)] border-[var(--color-accent)] text-[var(--color-text-inverse)]"
+                    : "border-[var(--color-border-strong)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-[var(--color-divider)]">
+          {visibleResults.map((property, index) => (
+            <SoldResultCard key={property.id} property={property} index={index} />
           ))}
         </div>
 
-        {/* CTA */}
         <ScrollReveal className="mt-16 text-center">
           <p className="text-[var(--color-text-muted)] mb-6">
-            Ready to add your success story?
+            Ready to plan your own result?
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(45,90,61,0.15)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-flex min-h-12 items-center text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:bg-[var(--color-accent-light)] transition-colors duration-300"
           >
             Book a Consultation
           </Link>
         </ScrollReveal>
       </section>
+    </div>
+  );
+}
+
+function Stat({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="px-5 py-7 lg:px-8 lg:py-9 border-r border-b lg:border-b-0 border-[var(--color-divider)] even:border-r-0 lg:even:border-r last:border-r-0">
+      <p className="font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3.25rem)] font-light text-[var(--color-accent-light)] leading-none">
+        {value}
+      </p>
+      <p className="mt-3 text-[0.68rem] tracking-[0.14em] uppercase text-[var(--color-text-muted)] font-semibold">
+        {label}
+      </p>
+    </div>
+  );
+}
+
+function SoldResultCard({ property, index }: { property: SoldResult; index: number }) {
+  const specs = property.category === "Residential"
+    ? `${property.beds} bed / ${property.baths} bath / ${property.rooms} rooms`
+    : property.propertyType;
+
+  return (
+    <ScrollReveal delay={index * 0.035} className="bg-[var(--color-bg)]">
+      <article className="group h-full p-5 lg:p-6 hover:bg-[var(--color-surface)] transition-colors duration-300">
+        <div className="aspect-[3/2] relative overflow-hidden mb-6 bg-[var(--color-surface)]">
+          <Image
+            src={property.image}
+            alt={`${property.address}, ${property.city}`}
+            fill
+            className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.05]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+          <span className="absolute top-3 left-3 z-10 text-[0.56rem] tracking-[0.22em] uppercase font-semibold px-3 py-1.5 bg-[var(--color-accent)] text-white">
+            Sold
+          </span>
+          <span className="absolute top-3 right-3 z-10 text-[0.56rem] tracking-[0.18em] uppercase font-semibold px-3 py-1.5 bg-white/90 text-[var(--color-accent)]">
+            {property.daysOnMarket} DOM
+          </span>
+        </div>
+
+        <div className="flex items-start justify-between gap-5 mb-5">
+          <div>
+            <p className="font-[family-name:var(--font-display)] text-[1.35rem] leading-tight font-normal group-hover:text-[var(--color-accent-light)] transition-colors duration-300">
+              {property.address}
+            </p>
+            <p className="mt-2 text-[0.82rem] text-[var(--color-text-muted)]">
+              {property.city} / {specs}
+            </p>
+          </div>
+          <p className="text-[0.65rem] tracking-[0.14em] uppercase text-[var(--color-accent)] font-semibold whitespace-nowrap">
+            {property.niche}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 py-4 border-y border-[var(--color-divider)] text-[0.78rem]">
+          <Detail label="Type" value={property.propertyType} />
+          <Detail label="Size" value={property.sqft} />
+          <Detail label="MLS" value={property.mls} />
+          <Detail label="Taxes" value={`${property.taxes} (${property.taxYear})`} />
+        </div>
+
+        {property.features.length > 0 && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {property.features.slice(0, 3).map((feature) => (
+              <span
+                key={feature}
+                className="text-[0.68rem] text-[var(--color-text-muted)] px-3 py-1.5 bg-[var(--color-surface)]"
+              >
+                {feature}
+              </span>
+            ))}
+          </div>
+        )}
+      </article>
+    </ScrollReveal>
+  );
+}
+
+function Detail({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="text-[0.58rem] tracking-[0.16em] uppercase text-[var(--color-text-soft)] font-semibold mb-1">
+        {label}
+      </p>
+      <p className="text-[var(--color-text)] leading-snug">{value}</p>
     </div>
   );
 }

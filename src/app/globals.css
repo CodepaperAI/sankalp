@@ -30,6 +30,10 @@
   --color-border-strong: #cfc8bc;
   --color-divider: #ece7df;
 
+  /* Typography — Manrope drives both roles */
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+
   /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-smooth: cubic-bezier(0.33, 1, 0.68, 1);
@@ -104,9 +108,9 @@ p {
   text-wrap: pretty;
 }
 
-/* Display serif tracking refinement */
+/* Display tracking refinement — tightened for Manrope at large sizes */
 .font-\[family-name\:var\(--font-display\)\] {
-  letter-spacing: -0.008em;
+  letter-spacing: -0.022em;
   font-feature-settings: "liga", "kern", "calt";
 }
 
@@ -152,4 +156,16 @@ html { scroll-behavior: smooth; }
 /* Smooth section transitions */
 section {
   scroll-margin-top: 100px;
+}
+
+/* Mobile menu link reveal */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

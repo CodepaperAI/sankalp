@@ -24,14 +24,23 @@ export function Hero() {
           priority
           sizes="100vw"
         />
+        {/* Desktop: directional scrim — the home breathes on the right */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden lg:block"
           style={{
             background:
-              "linear-gradient(90deg, rgba(18,31,23,0.96) 0%, rgba(18,31,23,0.82) 34%, rgba(18,31,23,0.28) 65%, rgba(18,31,23,0.08) 100%)",
+              "linear-gradient(90deg, rgba(18,31,23,0.88) 0%, rgba(18,31,23,0.62) 32%, rgba(18,31,23,0.18) 64%, rgba(18,31,23,0) 100%)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#101b14]/75 via-transparent to-[#101b14]/25" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-t from-[#101b14]/55 via-transparent to-[#101b14]/18" />
+        {/* Mobile/tablet: vertical scrim sized to the full-width text block */}
+        <div
+          className="absolute inset-0 lg:hidden"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(18,31,23,0.82) 0%, rgba(18,31,23,0.56) 40%, rgba(18,31,23,0.20) 66%, rgba(18,31,23,0.50) 100%)",
+          }}
+        />
       </div>
 
       <div className="relative z-10 w-full px-6 lg:px-16 xl:px-24 pt-28 pb-32">

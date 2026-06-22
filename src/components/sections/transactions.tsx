@@ -1,72 +1,13 @@
-"use client";
+﻿"use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ScrollReveal } from "@/components/animations";
-import { propertyImages } from "@/lib/images";
+import { featuredSoldResults, type SoldResult } from "@/lib/sold-results";
 import Image from "next/image";
 import Link from "next/link";
 
-type Transaction = {
-  address: string;
-  area: string;
-  specs: string;
-  price: string;
-  status: "Sold" | "Pre-Construction";
-  daysOnMarket?: number;
-  vsAsking?: string; // e.g. "+8%" or "List"
-  highlight?: string; // featured-only narrative tagline
-};
-
-const transactions: Transaction[] = [
-  {
-    address: "142 Lakeshore Road",
-    area: "Oakville",
-    specs: "4 Bed · 3 Bath · 3,200 sqft",
-    price: "$2,450,000",
-    status: "Sold",
-    daysOnMarket: 9,
-    vsAsking: "+12%",
-    highlight:
-      "Lake-view estate. Sold over asking after a focused 9-day campaign with three competing offers.",
-  },
-  {
-    address: "1 Bloor Street E, PH4",
-    area: "Yorkville",
-    specs: "2 Bed · 2 Bath · 1,800 sqft",
-    price: "$1,890,000",
-    status: "Sold",
-    daysOnMarket: 14,
-    vsAsking: "+6%",
-  },
-  {
-    address: "78 Heritage Hills Drive",
-    area: "Brampton",
-    specs: "5 Bed · 4 Bath · 4,100 sqft",
-    price: "$1,350,000",
-    status: "Sold",
-    daysOnMarket: 21,
-    vsAsking: "List",
-  },
-  {
-    address: "M City Tower 4, Unit 2812",
-    area: "Mississauga",
-    specs: "1+Den · 1 Bath · 650 sqft",
-    price: "$625,000",
-    status: "Pre-Construction",
-    daysOnMarket: 0,
-    vsAsking: "Platinum",
-  },
-  {
-    address: "34 James Street N",
-    area: "Hamilton",
-    specs: "Duplex · 6 Bed · 3 Bath",
-    price: "$890,000",
-    status: "Sold",
-    daysOnMarket: 11,
-    vsAsking: "+4%",
-  },
-];
+const transactions = featuredSoldResults;
 
 export function Transactions() {
   const railRef = useRef<HTMLDivElement>(null);
@@ -84,14 +25,13 @@ export function Transactions() {
     }
   }, []);
 
-  // Track active card via IntersectionObserver
   useEffect(() => {
     if (!railRef.current) return;
     const cards = railRef.current.querySelectorAll<HTMLElement>("[data-card]");
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
-          .filter((e) => e.isIntersecting)
+          .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible) {
           const idx = Number(visible.target.getAttribute("data-card"));
@@ -100,51 +40,45 @@ export function Transactions() {
       },
       { root: railRef.current, threshold: [0.5, 0.75, 1] }
     );
-    cards.forEach((c) => observer.observe(c));
+    cards.forEach((card) => observer.observe(card));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      className="py-[var(--section-gap)] bg-[var(--color-surface)] overflow-hidden border-t border-[var(--color-divider)] relative"
-    >
-      {/* Header */}
+    <section className="py-[var(--section-gap)] bg-[var(--color-surface)] overflow-hidden border-t border-[var(--color-divider)] relative">
       <div className="relative px-6 lg:px-16 xl:px-24 mb-12 lg:mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
         <ScrollReveal className="lg:col-span-7">
           <div className="flex items-center gap-4 mb-6">
             <span className="w-12 h-px bg-[var(--color-accent)]" />
-            <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
-              Recent Transactions &nbsp;·&nbsp; 2024 — 2025
+            <p className="text-[0.7rem] tracking-[0.22em] uppercase text-[var(--color-accent)] font-semibold">
+              Verified Sold Results
             </p>
           </div>
           <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-[1.05]">
-            Results{" "}
-            <em className="italic text-[var(--color-accent-light)]">speak.</em>
+            Real deals, <em className="italic text-[var(--color-accent-light)]">real addresses.</em>
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={0.15} className="lg:col-span-5">
-          <p className="text-[var(--color-text-muted)] leading-[1.75] text-[0.98rem] max-w-[440px] mb-6 lg:mb-0">
-            Closed deals from across the GTA — every one a different story,
-            every one a result we&apos;d put our name on.
+          <p className="text-[var(--color-text-muted)] leading-[1.75] text-[0.98rem] max-w-[460px] mb-6 lg:mb-0">
+            A selection of recent sales from across the Greater Toronto Area &mdash; condos, townhomes, and detached homes.
           </p>
         </ScrollReveal>
       </div>
 
-      {/* Counter + nav */}
       <div className="relative px-6 lg:px-16 xl:px-24 mb-6 flex items-center justify-between gap-6">
         <div className="flex items-baseline gap-3">
           <span className="font-[family-name:var(--font-display)] italic text-[1.15rem] text-[var(--color-accent)]">
-            &mdash;&nbsp;{String(activeIndex + 1).padStart(2, "0")}
+            - {String(activeIndex + 1).padStart(2, "0")}
           </span>
           <span className="text-[0.65rem] tracking-[0.25em] uppercase text-[var(--color-text-muted)]">
             of {String(transactions.length).padStart(2, "0")}
           </span>
           <div className="hidden sm:flex items-center gap-1.5 ml-4">
-            {transactions.map((_, i) => (
+            {transactions.map((transaction, i) => (
               <button
-                key={i}
+                key={transaction.id}
                 onClick={() => scrollToIndex(i)}
-                aria-label={`Go to transaction ${i + 1}`}
+                aria-label={`Go to sold result ${i + 1}`}
                 className="h-11 px-1.5 flex items-center"
               >
                 <span
@@ -188,24 +122,21 @@ export function Transactions() {
         </div>
       </div>
 
-      {/* Horizontal rail */}
       <div
         ref={railRef}
         className="relative flex gap-4 lg:gap-5 px-6 lg:px-16 xl:px-24 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {transactions.map((t, i) => (
+        {transactions.map((transaction, i) => (
           <TransactionCard
-            key={t.address}
-            transaction={t}
+            key={transaction.id}
+            transaction={transaction}
             index={i}
             featured={i === 0}
             isActive={i === activeIndex}
           />
         ))}
-        {/* Trailing spacer so last card can snap-start to left edge */}
         <div className="flex-shrink-0 w-1 lg:w-12" aria-hidden />
       </div>
-
     </section>
   );
 }
@@ -249,13 +180,14 @@ function TransactionCard({
   featured,
   isActive,
 }: {
-  transaction: Transaction;
+  transaction: SoldResult;
   index: number;
   featured?: boolean;
   isActive: boolean;
 }) {
-  const t = transaction;
-  const overAsking = t.vsAsking?.startsWith("+");
+  const specs = transaction.category === "Residential"
+    ? `${transaction.beds} bed / ${transaction.baths} bath / ${transaction.rooms} rooms`
+    : transaction.propertyType;
 
   return (
     <motion.article
@@ -264,81 +196,58 @@ function TransactionCard({
         featured
           ? "w-[88vw] sm:w-[480px] lg:w-[560px]"
           : "w-[78vw] sm:w-[340px] lg:w-[380px]"
-      } ${
-        isActive
-          ? "opacity-100"
-          : "opacity-70 hover:opacity-100"
-      }`}
+      } ${isActive ? "opacity-100" : "opacity-70 hover:opacity-100"}`}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Image card */}
       <div
-        className={`relative overflow-hidden bg-[var(--color-bg)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[3px] ${
-          featured ? "aspect-[5/4]" : "aspect-[3/4]"
-        }`}
+        className="relative overflow-hidden bg-[var(--color-bg)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[3px] h-[440px] sm:h-[480px] lg:h-[520px]"
       >
         <Image
-          src={propertyImages[index % propertyImages.length]}
-          alt={`${t.address}, ${t.area}`}
+          src={transaction.image}
+          alt={`${transaction.address}, ${transaction.city}`}
           fill
           className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
           sizes={featured ? "560px" : "380px"}
         />
-        {/* Gradient veil — stronger at bottom so the address & price always read */}
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.1) 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.52) 32%, rgba(0,0,0,0.12) 60%, rgba(0,0,0,0.02) 82%, rgba(0,0,0,0.18) 100%)",
           }}
         />
-        {/* Editorial inset frame */}
         <div className="absolute inset-3 lg:inset-4 border border-white/15 pointer-events-none z-10" />
 
-        {/* Top-left status badge */}
         <div className="absolute top-5 left-5 lg:top-6 lg:left-6 z-20 flex items-center gap-2">
-          <span
-            className={`text-[0.55rem] tracking-[0.3em] uppercase font-semibold px-3 py-1.5 ${
-              t.status === "Sold"
-                ? "bg-[var(--color-accent)] text-[var(--color-text-inverse)]"
-                : "bg-[var(--color-info)] text-[var(--color-text-inverse)]"
-            }`}
-          >
-            {t.status}
+          <span className="text-[0.55rem] tracking-[0.3em] uppercase font-semibold px-3 py-1.5 bg-[var(--color-accent)] text-[var(--color-text-inverse)]">
+            Sold
           </span>
           {featured && (
             <span className="text-[0.55rem] tracking-[0.3em] uppercase font-semibold px-3 py-1.5 bg-[var(--color-bg)]/90 backdrop-blur-md text-[var(--color-accent)]">
-              Spotlight
+              MLS Data
             </span>
           )}
         </div>
 
-        {/* Top-right metric pill */}
-        {t.vsAsking && (
-          <div className="absolute top-5 right-5 lg:top-6 lg:right-6 z-20 text-right">
-            <p className="text-[0.55rem] tracking-[0.3em] uppercase text-white/70 mb-1">
-              vs. asking
-            </p>
-            <p
-              className={`font-[family-name:var(--font-display)] italic text-[1.3rem] lg:text-[1.5rem] leading-none font-light ${
-                overAsking ? "text-white" : "text-white/90"
-              }`}
-            >
-              {t.vsAsking}
-            </p>
-          </div>
-        )}
-
-        {/* Bottom content — single positioned block, no overlapping numeral */}
         <div
-          className={`absolute inset-x-0 bottom-0 z-20 text-white ${
-            featured ? "p-7 lg:p-10" : "p-5 lg:p-6"
-          }`}
+          className="absolute top-5 right-5 lg:top-6 lg:right-6 z-20 text-right"
+          style={{ textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}
         >
-          {/* Tiny serial — top of content block, doesn't collide with anything */}
+          <p className="text-[0.55rem] tracking-[0.3em] uppercase text-white/70 mb-1">
+            DOM
+          </p>
+          <p className="font-[family-name:var(--font-display)] italic text-[1.3rem] lg:text-[1.5rem] leading-none font-light text-white">
+            {transaction.daysOnMarket}
+          </p>
+        </div>
+
+        <div
+          className={`absolute inset-x-0 bottom-0 z-20 text-white ${featured ? "p-7 lg:p-10" : "p-5 lg:p-6"}`}
+          style={{ textShadow: "0 1px 16px rgba(0,0,0,0.45)" }}
+        >
           <p className="text-[0.55rem] tracking-[0.32em] uppercase text-white/60 font-medium mb-3">
             <span className="font-[family-name:var(--font-display)] italic text-[0.75rem] tracking-normal text-white/85 mr-2">
               {String(index + 1).padStart(2, "0")}
@@ -346,38 +255,27 @@ function TransactionCard({
             of {String(transactions.length).padStart(2, "0")}
           </p>
 
-          <p
-            className={`font-[family-name:var(--font-display)] font-normal leading-[1.15] mb-1.5 ${
-              featured ? "text-[1.5rem] lg:text-[1.95rem]" : "text-[1.1rem] lg:text-[1.25rem]"
-            }`}
-          >
-            {t.address}
+          <p className={`font-[family-name:var(--font-display)] font-normal leading-[1.15] mb-1.5 ${featured ? "text-[1.5rem] lg:text-[1.95rem]" : "text-[1.1rem] lg:text-[1.25rem]"}`}>
+            {transaction.address}
           </p>
           <p className="text-[0.78rem] text-white/75 mb-4 tracking-[0.02em]">
-            {t.area} &middot; {t.specs}
+            {transaction.city} / {specs}
           </p>
-          {featured && t.highlight && (
+          {featured && (
             <p className="text-[0.88rem] text-white/85 leading-[1.6] mb-5 max-w-[420px]">
-              {t.highlight}
+              {transaction.highlight}
             </p>
           )}
           <div className="flex items-end justify-between gap-4 pt-3 border-t border-white/15">
-            <p
-              className={`font-[family-name:var(--font-display)] font-light leading-none mt-2 ${
-                featured ? "text-[1.85rem] lg:text-[2.4rem]" : "text-[1.35rem] lg:text-[1.55rem]"
-              }`}
-            >
-              {t.price}
+            <p className={`font-[family-name:var(--font-display)] font-light leading-none mt-2 ${featured ? "text-[1.35rem] lg:text-[1.75rem]" : "text-[1.05rem] lg:text-[1.2rem]"}`}>
+              {transaction.propertyType}
             </p>
-            {t.daysOnMarket !== undefined && t.daysOnMarket > 0 && (
-              <p className="text-[0.6rem] tracking-[0.2em] uppercase text-white/65 pb-1">
-                {t.daysOnMarket} {t.daysOnMarket === 1 ? "day" : "days"}
-              </p>
-            )}
+            <p className="text-[0.6rem] tracking-[0.18em] uppercase text-white/65 pb-1">
+              MLS {transaction.mls}
+            </p>
           </div>
         </div>
 
-        {/* Active indicator */}
         {isActive && (
           <span className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-accent)] z-30" />
         )}

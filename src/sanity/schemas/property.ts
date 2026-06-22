@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sanity Schema: Property
  * Represents a sold/active property listing.
  */
@@ -46,17 +46,23 @@ export const property = {
     {
       name: "bedrooms",
       title: "Bedrooms",
-      type: "number",
+      type: "string",
+      description: "Use a string so values like 2 + 1 can be entered exactly.",
     },
     {
       name: "bathrooms",
       title: "Bathrooms",
-      type: "number",
+      type: "string",
+    },
+    {
+      name: "rooms",
+      title: "Rooms",
+      type: "string",
     },
     {
       name: "sqft",
       title: "Square Footage",
-      type: "number",
+      type: "string",
     },
     {
       name: "propertyType",
@@ -64,14 +70,38 @@ export const property = {
       type: "string",
       options: {
         list: [
+          { title: "Condo", value: "condo" },
+          { title: "Condo Townhouse", value: "condo-townhouse" },
           { title: "Detached", value: "detached" },
           { title: "Semi-Detached", value: "semi-detached" },
-          { title: "Townhouse", value: "townhouse" },
-          { title: "Condo", value: "condo" },
+          { title: "Row/Townhouse", value: "row-townhouse" },
           { title: "Duplex", value: "duplex" },
           { title: "Estate", value: "estate" },
+          { title: "Office", value: "office" },
+          { title: "Industrial", value: "industrial" },
+          { title: "Commercial/Retail", value: "commercial-retail" },
         ],
       },
+    },
+    {
+      name: "daysOnMarket",
+      title: "Days on Market",
+      type: "number",
+    },
+    {
+      name: "mlsNumber",
+      title: "MLS Number",
+      type: "string",
+    },
+    {
+      name: "taxes",
+      title: "Taxes",
+      type: "string",
+    },
+    {
+      name: "taxYear",
+      title: "Tax Year",
+      type: "string",
     },
     {
       name: "niche",
@@ -86,6 +116,7 @@ export const property = {
           { title: "Investment", value: "investment" },
           { title: "Relocation", value: "relocation" },
           { title: "Downsizing", value: "downsizing" },
+          { title: "Commercial", value: "commercial" },
         ],
       },
     },

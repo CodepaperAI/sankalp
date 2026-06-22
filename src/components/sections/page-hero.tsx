@@ -28,7 +28,7 @@ export function PageHero({ eyebrow, title, subtitle, imageSrc, imageAlt }: PageH
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to top, rgba(15,27,19,0.88) 0%, rgba(15,27,19,0.34) 50%, rgba(15,27,19,0.42) 100%)",
+              "linear-gradient(to top, rgba(15,27,19,0.82) 0%, rgba(15,27,19,0.30) 48%, rgba(15,27,19,0.12) 78%, rgba(15,27,19,0.22) 100%)",
           }}
         />
       </div>

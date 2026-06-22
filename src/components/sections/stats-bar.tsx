@@ -1,12 +1,13 @@
 "use client";
 
 import { StatsCounter } from "@/components/animations";
+import { soldResultStats } from "@/lib/sold-results";
 
 const stats = [
-  { target: 350, suffix: "+", label: "Families Served" },
-  { target: 180, prefix: "$", suffix: "M+", label: "In Transactions" },
-  { target: 12, suffix: "", label: "GTA Neighbourhoods" },
-  { target: 7, suffix: "", label: "Specialties" },
+  { target: soldResultStats.total, suffix: "", label: "Homes Sold" },
+  { target: soldResultStats.cities, suffix: "", label: "Cities Served" },
+  { target: soldResultStats.fastestSale, suffix: " Day", label: "Fastest Sale" },
+  { target: 100, suffix: "%", label: "Sold" },
 ];
 
 export function StatsBar() {
@@ -42,7 +43,6 @@ export function StatsBar() {
           <div className="relative">
             <StatsCounter
               target={stat.target}
-              prefix={stat.prefix}
               suffix={stat.suffix}
               label={stat.label}
               className="font-[family-name:var(--font-display)] text-[clamp(2.25rem,4.5vw,3.5rem)] font-light text-[var(--color-accent-light)] leading-none mb-3"
