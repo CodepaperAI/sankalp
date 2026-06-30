@@ -1,5 +1,3 @@
-"use client";
-
 import { ScrollReveal } from "@/components/animations";
 
 const testimonials = [
@@ -27,7 +25,7 @@ export function Testimonials() {
   const [featured, ...supporting] = testimonials;
 
   return (
-    <section className="section-dark bg-[var(--color-bg)] text-[var(--color-text)]">
+    <section className="bg-[var(--color-bg)] text-[var(--color-text)]">
       <div className="grid grid-cols-1 lg:grid-cols-12">
         <div className="lg:col-span-4 px-6 lg:px-16 xl:px-24 py-16 lg:py-[var(--section-gap)] border-b lg:border-b-0 lg:border-r border-[var(--color-divider)]">
           <ScrollReveal>

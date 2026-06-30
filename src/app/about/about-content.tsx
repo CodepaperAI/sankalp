@@ -1,6 +1,4 @@
-"use client";
-
-import { ScrollReveal, TextReveal, StatsCounter } from "@/components/animations";
+import { ScrollReveal, StatsCounter } from "@/components/animations";
 import { PageHero } from "@/components/sections/page-hero";
 import { images } from "@/lib/images";
 import Image from "next/image";
@@ -9,19 +7,23 @@ import Link from "next/link";
 const values = [
   {
     title: "Trust Over Transactions",
-    description: "Every recommendation is rooted in what's right for the family, not what closes fastest.",
+    description:
+      "Every recommendation is rooted in what's right for the family, not what closes fastest.",
   },
   {
     title: "Community Knowledge",
-    description: "Not just data — lived experience. The schools, the parks, the temples, the commute. The things that make a neighbourhood a home.",
+    description:
+      "Not just data - lived experience. The schools, the parks, the temples, the commute. The things that make a neighbourhood a home.",
   },
   {
     title: "Seven Specialties, One Standard",
-    description: "Whether it's a $600K first home or a $5M estate, the rigour, attention, and care are identical.",
+    description:
+      "Whether it's a $600K first home or a $5M estate, the rigour, attention, and care are identical.",
   },
   {
     title: "Transparent Process",
-    description: "No surprises. Every step explained, every cost surfaced, every decision yours to make with full clarity.",
+    description:
+      "No surprises. Every step explained, every cost surfaced, every decision yours to make with full clarity.",
   },
 ];
 
@@ -35,46 +37,49 @@ const stats = [
 export function AboutContent() {
   return (
     <div>
-      <PageHero eyebrow="About" title="Real estate is personal. It should feel that way." imageSrc={images.agent} imageAlt="Sankalp — GTA Real Estate Professional" />
+      <PageHero
+        compact
+        eyebrow="About"
+        title="Real estate is personal. It should feel that way."
+        imageSrc={images.agent}
+        imageAlt="Sankalp - GTA Real Estate Professional"
+        imagePosition="center 20%"
+      />
 
-      {/* Bio section — editorial split with eyebrow, pull quote, signature */}
-      <section className="relative px-6 lg:px-16 xl:px-24 py-[var(--section-gap)] overflow-hidden">
-        {/* Ambient blob */}
+      <section className="relative overflow-hidden px-6 py-14 lg:px-16 lg:py-20 xl:px-24">
         <div
           aria-hidden
-          className="absolute -top-32 -left-40 w-[520px] h-[520px] rounded-full opacity-[0.05] blur-3xl pointer-events-none"
+          className="pointer-events-none absolute -left-40 -top-32 h-[420px] w-[420px] rounded-full opacity-[0.035] blur-3xl"
           style={{
             background:
               "radial-gradient(circle, rgba(45,90,61,1) 0%, transparent 70%)",
           }}
         />
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_0.6fr] gap-12 lg:gap-20 items-start">
-          {/* Text */}
-          <div>
+        <div className="relative grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.58fr)] lg:gap-14">
+          <div className="min-w-0">
             <ScrollReveal>
-              <div className="flex items-center gap-4 mb-7">
-                <span className="w-12 h-px bg-[var(--color-accent)]" />
-                <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
+              <div className="mb-5 flex items-center gap-4">
+                <span className="h-px w-10 bg-[var(--color-accent)]" />
+                <p className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   In My Own Words
                 </p>
               </div>
             </ScrollReveal>
 
-            {/* Pull quote */}
             <ScrollReveal delay={0.15}>
-              <p className="font-[family-name:var(--font-display)] italic text-[clamp(1.4rem,2.4vw,2rem)] font-light leading-[1.35] text-[var(--color-accent-light)] mb-12 lg:mb-16 max-w-[640px]">
+              <p className="mb-8 max-w-[640px] break-words font-[family-name:var(--font-display)] text-[1.4rem] font-light italic leading-[1.35] text-[var(--color-accent-light)] lg:mb-10 lg:text-[1.9rem]">
                 &ldquo;Home is never just a transaction. It&apos;s the place
-                where the next chapter happens — and the right match isn&apos;t
+                where the next chapter happens - and the right match isn&apos;t
                 about square footage.&rdquo;
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.3}>
-              <div className="space-y-6 text-[var(--color-text-muted)] leading-[1.8] text-[1rem] max-w-[560px]">
+              <div className="max-w-[560px] min-w-0 space-y-5 break-words text-[1rem] leading-[1.75] text-[var(--color-text-muted)]">
                 <p>
                   I grew up watching families in the GTA navigate one of the
-                  biggest decisions of their lives — where to call home. Too
+                  biggest decisions of their lives - where to call home. Too
                   often, the process felt transactional. A listing. A showing.
                   A closing.
                 </p>
@@ -87,64 +92,58 @@ export function AboutContent() {
                 </p>
                 <p>
                   After serving over 350 families across the Greater Toronto
-                  Area — from Oakville&apos;s lakeside estates to Brampton&apos;s
-                  growing communities — I can tell you: the right match
+                  Area - from Oakville&apos;s lakeside estates to Brampton&apos;s
+                  growing communities - I can tell you: the right match
                   isn&apos;t about square footage. It&apos;s about understanding
                   what home means to you.
                 </p>
               </div>
             </ScrollReveal>
 
-            {/* Signature block */}
             <ScrollReveal delay={0.4}>
-              <div className="mt-12 pt-8 border-t border-[var(--color-divider)] max-w-[560px]">
-                <p className="font-[family-name:var(--font-display)] italic text-[2rem] font-light text-[var(--color-accent)] leading-none mb-2">
+              <div className="mt-9 max-w-[560px] border-t border-[var(--color-divider)] pt-6">
+                <p className="mb-2 font-[family-name:var(--font-display)] text-[2rem] font-light italic leading-none text-[var(--color-accent)]">
                   Sankalp
                 </p>
-                <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-text-muted)]">
-                  Founder &nbsp;·&nbsp; GTA Real Estate
+                <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                  Founder / GTA Real Estate
                 </p>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Portrait */}
           <ScrollReveal delay={0.2} direction="right">
-            <div className="lg:sticky lg:top-32">
-              <div className="aspect-[3/4] relative overflow-hidden">
+            <div className="lg:sticky lg:top-28">
+              <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src={images.agent}
-                  alt="Sankalp — GTA Real Estate Professional"
+                  alt="Sankalp - GTA Real Estate Professional"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 35vw"
                 />
-                {/* Editorial inset frame */}
-                <div className="absolute inset-4 border border-white/15 pointer-events-none" />
-                {/* Caption tab */}
+                <div className="pointer-events-none absolute inset-4 border border-white/15" />
                 <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
                   <div className="text-white/95">
-                    <p className="text-[0.55rem] tracking-[0.3em] uppercase opacity-80 mb-1">
+                    <p className="mb-1 text-[0.55rem] uppercase tracking-[0.24em] opacity-80">
                       Founder
                     </p>
                     <p className="font-[family-name:var(--font-display)] text-[1.25rem] font-light leading-tight">
                       Sankalp
                     </p>
                   </div>
-                  <span className="font-[family-name:var(--font-display)] italic text-[0.85rem] text-white/85">
-                    &mdash;&nbsp;01
+                  <span className="font-[family-name:var(--font-display)] text-[0.85rem] italic text-white/85">
+                    - 01
                   </span>
                 </div>
-                {/* Soft bottom gradient */}
-                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
               </div>
-              {/* Credentials chip below portrait */}
-              <div className="mt-4 px-4 py-3 bg-[var(--color-surface)] flex items-center justify-between gap-4">
-                <span className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-semibold">
+              <div className="mt-3 flex items-center justify-between gap-4 bg-[var(--color-surface)] px-4 py-3">
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   RECO Registered
                 </span>
-                <span className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-text-muted)]">
-                  12 yrs · GTA
+                <span className="text-[0.6rem] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+                  12 yrs / GTA
                 </span>
               </div>
             </div>
@@ -152,14 +151,13 @@ export function AboutContent() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 border-t border-b border-[var(--color-divider)] bg-[var(--color-surface)]">
+      <section className="grid grid-cols-2 border-y border-[var(--color-divider)] bg-[var(--color-surface)] lg:grid-cols-4">
         {stats.map((stat, i) => (
           <div
             key={stat.label}
-            className={`py-12 lg:py-14 px-4 relative ${
+            className={`relative px-4 py-8 lg:py-10 ${
               i < stats.length - 1
-                ? "lg:after:content-[''] lg:after:absolute lg:after:right-0 lg:after:top-[10%] lg:after:bottom-[10%] lg:after:w-px lg:after:bg-[var(--color-divider)]"
+                ? "lg:after:absolute lg:after:right-0 lg:after:top-[18%] lg:after:bottom-[18%] lg:after:w-px lg:after:bg-[var(--color-divider)] lg:after:content-['']"
                 : ""
             }`}
           >
@@ -168,73 +166,69 @@ export function AboutContent() {
               prefix={stat.prefix}
               suffix={stat.suffix}
               label={stat.label}
-              className="font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3rem)] font-light text-[var(--color-accent-light)] leading-none mb-2"
-              labelClassName="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--color-text-muted)]"
+              className="mb-2 font-[family-name:var(--font-display)] text-[2rem] font-light leading-none text-[var(--color-accent-light)] lg:text-[2.75rem]"
+              labelClassName="text-[0.62rem] tracking-[0.16em] uppercase text-[var(--color-text-muted)]"
             />
           </div>
         ))}
       </section>
 
-      {/* Values */}
-      <section className="py-[var(--section-gap)] px-6 lg:px-16 xl:px-24 relative overflow-hidden">
-        {/* Ambient blob */}
+      <section className="relative overflow-hidden px-6 py-14 lg:px-16 lg:py-20 xl:px-24">
         <div
           aria-hidden
-          className="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full opacity-[0.06] blur-3xl pointer-events-none"
+          className="pointer-events-none absolute -right-40 -top-40 h-[440px] w-[440px] rounded-full opacity-[0.035] blur-3xl"
           style={{
             background:
               "radial-gradient(circle, rgba(45,90,61,1) 0%, transparent 70%)",
           }}
         />
 
-        <div className="relative mb-14 lg:mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+        <div className="relative mb-10 grid grid-cols-1 items-end gap-6 lg:mb-12 lg:grid-cols-12">
           <ScrollReveal className="lg:col-span-7">
-            <div className="flex items-center gap-4 mb-6">
-              <span className="w-12 h-px bg-[var(--color-accent)]" />
-              <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
-                Principles &nbsp;·&nbsp; 01 — 04
+            <div className="mb-5 flex items-center gap-4">
+              <span className="h-px w-10 bg-[var(--color-accent)]" />
+              <p className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                Principles / 01 - 04
               </p>
             </div>
-            <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.5rem)] font-light leading-[1.05]">
+            <h2 className="font-[family-name:var(--font-display)] text-[2rem] font-light leading-[1.08] md:text-[3rem]">
               How I{" "}
               <em className="italic text-[var(--color-accent-light)]">work.</em>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.15} className="lg:col-span-5">
-            <p className="text-[var(--color-text-muted)] leading-[1.75] text-[1rem]">
+            <p className="text-[1rem] leading-[1.7] text-[var(--color-text-muted)]">
               Four convictions that shape every consultation, every showing,
               and every signature.
             </p>
           </ScrollReveal>
         </div>
 
-        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-px bg-[var(--color-border)]">
+        <div className="relative grid grid-cols-1 gap-px bg-[var(--color-border)] md:grid-cols-2">
           {values.map((v, i) => (
             <ScrollReveal
               key={v.title}
               delay={i * 0.08}
-              className="relative bg-[var(--color-bg)] p-8 lg:p-12 group hover:bg-[var(--color-surface)] transition-colors duration-500 overflow-hidden"
+              className="group relative overflow-hidden bg-[var(--color-bg)] p-6 transition-colors duration-300 hover:bg-[var(--color-surface)] lg:p-8"
             >
-              {/* Decorative outline numeral */}
               <span
                 aria-hidden
-                className="absolute -bottom-8 -right-2 font-[family-name:var(--font-display)] italic text-[10rem] leading-none font-light text-[var(--color-accent)]/[0.05] select-none pointer-events-none transition-all duration-700 group-hover:text-[var(--color-accent)]/[0.08] group-hover:-translate-y-2"
+                className="pointer-events-none absolute -bottom-6 -right-2 select-none font-[family-name:var(--font-display)] text-[7rem] font-light italic leading-none text-[var(--color-accent)]/[0.05] transition-colors duration-300 group-hover:text-[var(--color-accent)]/[0.08]"
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              {/* Number tag */}
-              <div className="flex items-center gap-3 mb-6 relative">
-                <span className="w-8 h-px bg-[var(--color-accent)] transition-all duration-500 group-hover:w-12" />
-                <span className="text-[0.6rem] tracking-[0.3em] uppercase text-[var(--color-accent)] font-semibold">
+              <div className="relative mb-5 flex items-center gap-3">
+                <span className="h-px w-8 bg-[var(--color-accent)]" />
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
                   Principle 0{i + 1}
                 </span>
               </div>
 
-              <h3 className="font-[family-name:var(--font-display)] text-[1.4rem] lg:text-[1.65rem] font-normal text-[var(--color-text)] leading-tight mb-4 relative">
+              <h3 className="relative mb-4 font-[family-name:var(--font-display)] text-[1.35rem] font-normal leading-tight text-[var(--color-text)] lg:text-[1.55rem]">
                 {v.title}
               </h3>
-              <p className="text-[var(--color-text-muted)] leading-[1.7] text-[0.95rem] max-w-[420px] relative">
+              <p className="relative max-w-[420px] text-[0.95rem] leading-[1.65] text-[var(--color-text-muted)]">
                 {v.description}
               </p>
             </ScrollReveal>
@@ -242,20 +236,21 @@ export function AboutContent() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-[var(--section-gap)] px-6 lg:px-16 xl:px-24 border-t border-[var(--color-divider)] text-center">
+      <section className="border-t border-[var(--color-divider)] px-6 py-14 text-center lg:px-16 lg:py-[4.5rem] xl:px-24">
         <ScrollReveal>
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3.5rem)] font-light leading-[1.1] mb-6">
+          <h2 className="mb-5 font-[family-name:var(--font-display)] text-[2rem] font-light leading-[1.1] md:text-[3rem]">
             Let&apos;s find your{" "}
-            <em className="italic text-[var(--color-accent-light)]">next chapter.</em>
+            <em className="italic text-[var(--color-accent-light)]">
+              next chapter.
+            </em>
           </h2>
-          <p className="text-[var(--color-text-muted)] max-w-md mx-auto mb-8">
+          <p className="mx-auto mb-7 max-w-md text-[var(--color-text-muted)]">
             Whether you&apos;re buying your first home or selling your legacy property,
             the conversation starts here.
           </p>
           <Link
             href="/book"
-            className="inline-block text-[0.75rem] tracking-[0.15em] uppercase font-semibold px-8 py-4 bg-[var(--color-accent)] text-[var(--color-text-inverse)] hover:shadow-[0_8px_32px_rgba(45,90,61,0.15)] hover:scale-[1.03] transition-all duration-300"
+            className="inline-flex min-h-12 items-center bg-[var(--color-accent)] px-8 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-inverse)] transition-colors duration-300 hover:bg-[var(--color-accent-light)]"
           >
             Book a Consultation
           </Link>

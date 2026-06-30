@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { manrope } from "@/lib/fonts";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | Sankalp Real Estate",
   },
   description:
-    "Trusted by families across the Greater Toronto Area. Seven specialties — first-time buyers, luxury homes, condos, pre-construction, investment, relocation, and downsizing.",
+    "Trusted by families across the Greater Toronto Area. Seven specialties - first-time buyers, luxury homes, condos, pre-construction, investment, relocation, and downsizing.",
   keywords: [
     "GTA real estate",
     "Toronto luxury homes",
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     siteName: "Sankalp Real Estate",
     title: "Sankalp Real Estate | Luxury GTA Homes & Expert Guidance",
     description:
-      "Trusted by families across the Greater Toronto Area. Seven specialties, one commitment — your home, your legacy.",
+      "Trusted by families across the Greater Toronto Area. Seven specialties, one commitment - your home, your legacy.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Sankalp Real Estate — Your Home. Your Legacy.",
+        alt: "Sankalp Real Estate - Your Home. Your Legacy.",
       },
     ],
   },
@@ -66,16 +66,18 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${manrope.variable} h-full`}
-    >
+    <html lang="en" className={`${manrope.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <JsonLd />
         <Analytics />

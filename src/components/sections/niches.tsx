@@ -21,7 +21,7 @@ const flagship: Niche = {
   tagline:
     "Estates and legacy properties across Oakville, King City, Forest Hill, and the Bridle Path.",
   description:
-    "Estates and legacy properties across the GTA's most discreet enclaves — off-market access, and the patience these homes deserve.",
+    "Estate and legacy property guidance across the GTA's most discreet enclaves, with off-market access and measured counsel.",
   href: "/buy/luxury",
   image: "/images/niches/luxury.jpg",
 };
@@ -32,7 +32,7 @@ const supporting: Niche[] = [
     name: "First-Time Buyers",
     tag: "SPECIALTY",
     tagline:
-      "Your first home shouldn't be your hardest. Mortgages, rebates, and the questions you didn't know to ask.",
+      "Mortgages, rebates, offer strategy, and the questions you did not know to ask yet.",
     href: "/buy/first-time",
     image: "/images/niches/first-time.jpg",
   },
@@ -41,7 +41,7 @@ const supporting: Niche[] = [
     name: "Condos",
     tag: "SPECIALTY",
     tagline:
-      "We know the buildings, the boards, and which floors actually appreciate.",
+      "Buildings, boards, maintenance fees, and which units have room to appreciate.",
     href: "/buy/condos",
     image: "/images/niches/condos.jpg",
   },
@@ -50,7 +50,7 @@ const supporting: Niche[] = [
     name: "Pre-Construction",
     tag: "SPECIALTY",
     tagline:
-      "Buy before the foundation. Platinum access to the projects worth waiting for.",
+      "Platinum project access, assignment strategy, deposits, and realistic timelines.",
     href: "/buy/pre-construction",
     image: "/images/niches/pre-construction.jpg",
   },
@@ -59,7 +59,7 @@ const supporting: Niche[] = [
     name: "Investment Properties",
     tag: "SPECIALTY",
     tagline:
-      "Real estate as wealth, not hobby. Cash-flow models, tenant-ready listings, the long game.",
+      "Cash-flow checks, tenant-ready listings, financing context, and the long game.",
     href: "/buy/investment",
     image: "/images/niches/investment.jpg",
   },
@@ -68,7 +68,7 @@ const supporting: Niche[] = [
     name: "Relocation",
     tag: "SPECIALTY",
     tagline:
-      "New to the GTA? We'll help you find more than a house — we'll find your neighbourhood.",
+      "Neighbourhood guidance for families and professionals moving into the GTA.",
     href: "/buy/relocation",
     image: "/images/niches/relocation.jpg",
   },
@@ -77,79 +77,55 @@ const supporting: Niche[] = [
     name: "Downsizing",
     tag: "SPECIALTY",
     tagline:
-      "A thoughtful next chapter, planned around the life you want to keep.",
+      "A thoughtful next chapter, planned around comfort, timing, and continuity.",
     href: "/buy/downsizing",
     image: "/images/niches/downsizing.jpg",
   },
 ];
 
+const niches = [flagship, ...supporting];
+
 export function Niches() {
   return (
-    <section className="relative py-[var(--section-gap)] px-6 lg:px-16 xl:px-24 overflow-hidden">
-      {/* Header */}
-      <div className="relative mb-14 lg:mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-        <ScrollReveal className="lg:col-span-7">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="w-12 h-px bg-[var(--color-accent)]" />
-            <p className="text-[0.7rem] tracking-[0.25em] uppercase text-[var(--color-accent)] font-medium">
-              Ways We Can Help
-            </p>
-          </div>
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-[1.05]">
-            A practice tailored{" "}
-            <em className="italic text-[var(--color-accent-light)]">
-              to every move.
-            </em>
+    <section className="relative overflow-hidden bg-[var(--color-surface)] px-6 py-16 lg:px-16 lg:py-20 xl:px-24">
+      <div className="relative mb-10 grid grid-cols-1 items-end gap-6 lg:grid-cols-12">
+        <ScrollReveal className="lg:col-span-6">
+          <p className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
+            Ways we can help
+          </p>
+          <h2 className="max-w-[620px] font-[family-name:var(--font-display)] text-3xl font-light leading-[1.08] text-[var(--color-text)] md:text-4xl lg:text-5xl">
+            Specific guidance for the move you are actually making.
           </h2>
         </ScrollReveal>
-        <ScrollReveal delay={0.15} className="lg:col-span-5">
-          <p className="text-[var(--color-text-muted)] leading-[1.75] text-[1rem]">
-            Seven practices, each a discipline of its own — with the depth, contacts,
-            and patience the work actually requires.
+        <ScrollReveal delay={0.12} className="lg:col-span-5 lg:col-start-8">
+          <p className="max-w-[520px] text-[0.98rem] leading-[1.75] text-[var(--color-text-muted)]">
+            The services are still broad enough to cover the whole journey, but
+            the layout is calmer: scan the fit, open the path, keep moving.
           </p>
         </ScrollReveal>
       </div>
 
-      {/* Asymmetric editorial grid */}
-      <div className="relative grid grid-cols-12 gap-3 lg:gap-4 lg:auto-rows-[152px]">
-        {/* FLAGSHIP — Luxury Homes (col 1-8, row 1-4) */}
-        <NicheCard
-          niche={flagship}
-          isFlagship
-          layout="col-span-12 lg:col-span-8 lg:row-span-4 aspect-[4/5] sm:aspect-[16/10] lg:aspect-auto"
-        />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {niches.map((niche) => (
+          <NicheCard
+            key={niche.name}
+            niche={niche}
+            isFlagship={niche.tag === "FLAGSHIP"}
+          />
+        ))}
+      </div>
 
-        {/* TALL NARROW STACK — First-Time + Pre-Construction (col 9-12) */}
-        <NicheCard
-          niche={supporting[0]}
-          layout="col-span-12 md:col-span-6 lg:col-span-4 lg:row-span-2 aspect-[4/5] md:aspect-[3/4] lg:aspect-auto"
-        />
-        <NicheCard
-          niche={supporting[1]}
-          layout="col-span-12 md:col-span-6 lg:col-span-4 lg:row-span-2 aspect-[4/5] md:aspect-[3/4] lg:aspect-auto"
-        />
-
-        {/* BOTTOM ROW — Condos, Investment, Relocation */}
-        <NicheCard
-          niche={supporting[2]}
-          layout="col-span-12 md:col-span-6 lg:col-span-4 lg:row-span-2 aspect-[4/5] md:aspect-[3/4] lg:aspect-auto"
-        />
-        <NicheCard
-          niche={supporting[3]}
-          layout="col-span-12 md:col-span-6 lg:col-span-4 lg:row-span-2 aspect-[4/5] md:aspect-[3/4] lg:aspect-auto"
-        />
-        <NicheCard
-          niche={supporting[4]}
-          layout="col-span-12 lg:col-span-4 lg:row-span-2 aspect-[4/5] md:aspect-[16/9] lg:aspect-auto"
-        />
-        <NicheCard
-          niche={supporting[5]}
-          isWide
-          layout="col-span-12 lg:col-span-12 lg:row-span-2 aspect-[16/10] md:aspect-[16/7] lg:aspect-auto"
-        />
-
-        {/* CTA RIBBON — full width, row 7 */}
-        <CTARibbon />
+      <div className="mt-4 flex flex-col gap-5 border border-[var(--color-divider)] bg-[var(--color-surface-raised)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between lg:px-7">
+        <p className="font-[family-name:var(--font-display)] text-[1.25rem] font-light leading-tight text-[var(--color-text)] lg:text-[1.45rem]">
+          Not sure where you fit?{" "}
+          <span className="italic text-[var(--color-accent)]">Start with a conversation.</span>
+        </p>
+        <Link
+          href="/book"
+          className="inline-flex min-h-11 items-center justify-center whitespace-nowrap bg-[var(--color-accent)] px-5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-inverse)] transition-colors duration-300 hover:bg-[var(--color-accent-light)]"
+        >
+          Book a Call
+        </Link>
       </div>
     </section>
   );
@@ -158,140 +134,66 @@ export function Niches() {
 function NicheCard({
   niche,
   isFlagship,
-  isWide,
-  layout,
 }: {
   niche: Niche;
-  isFlagship?: boolean;
-  isWide?: boolean;
-  layout: string;
+  isFlagship: boolean;
 }) {
   return (
     <Link
       href={niche.href}
       aria-label={`Explore ${niche.name}`}
-      className={`group relative block overflow-hidden bg-[var(--color-surface)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-[3px] ${layout}`}
+      className={`group flex h-full min-h-[344px] flex-col overflow-hidden border border-[var(--color-divider)] bg-[var(--color-surface-raised)] shadow-[0_18px_50px_-44px_rgba(31,31,31,0.45)] transition-transform duration-300 hover:-translate-y-1 ${
+        isFlagship ? "xl:col-span-2" : ""
+      }`}
     >
-      {/* Background image */}
-      <Image
-        src={niche.image}
-        alt={niche.name}
-        fill
-        className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
-        sizes={
-          isFlagship
-            ? "(max-width: 1024px) 100vw, 66vw"
-            : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        }
-      />
-
-      {/* Targeted scrim — image breathes up top, darkens only where text sits.
-          Wide card uses a left-anchored scrim so text reads as an intentional
-          panel and the photo showcases on the right. */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: isWide
-            ? "linear-gradient(100deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.62) 30%, rgba(0,0,0,0.28) 55%, rgba(0,0,0,0.06) 78%, rgba(0,0,0,0.02) 100%)"
-            : "linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.05) 32%, rgba(0,0,0,0.32) 64%, rgba(0,0,0,0.72) 88%, rgba(0,0,0,0.84) 100%)",
-        }}
-      />
-
-      {/* Top-left: italic serif numeral */}
-      <span
-        className={`absolute top-5 left-5 lg:top-7 lg:left-7 font-[family-name:var(--font-display)] italic font-light text-white/85 ${
-          isFlagship ? "text-[1.05rem] lg:text-[1.2rem]" : "text-[0.95rem]"
-        }`}
-        style={{ textShadow: "0 1px 10px rgba(0,0,0,0.45)" }}
-      >
-        &mdash;&nbsp;{niche.number}
-      </span>
-
-      {/* Top-right: uppercase letterspaced tag */}
-      <span
-        className={`absolute top-5 right-5 lg:top-7 lg:right-7 text-[0.65rem] tracking-[0.22em] uppercase font-semibold ${
-          isFlagship ? "text-white/95" : "text-white/75"
-        }`}
-        style={{ textShadow: "0 1px 10px rgba(0,0,0,0.45)" }}
-      >
-        {niche.tag}
-      </span>
-
-      {/* Bottom content */}
-      <div
-        className={`absolute inset-x-0 bottom-0 text-white ${
-          isFlagship ? "p-7 lg:p-10" : "p-5 lg:p-6"
-        }`}
-        style={{ textShadow: "0 1px 16px rgba(0,0,0,0.4)" }}
-      >
-        <h3
-          className={`font-[family-name:var(--font-display)] font-light leading-[1.1] mb-3 ${
+      <div className={`relative overflow-hidden ${isFlagship ? "aspect-[16/8]" : "aspect-[16/10]"}`}>
+        <Image
+          src={niche.image}
+          alt={niche.name}
+          fill
+          className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+          sizes={
             isFlagship
-              ? "text-[clamp(1.85rem,3.2vw,2.4rem)]"
-              : "text-[clamp(1.25rem,1.8vw,1.5rem)]"
-          }`}
-        >
+              ? "(max-width: 1280px) 100vw, 50vw"
+              : "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+          }
+        />
+        <div className="absolute left-4 top-4 flex items-center gap-2">
+          <span className="bg-[var(--color-bg)]/92 px-3 py-1.5 text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)] backdrop-blur">
+            {niche.number}
+          </span>
+          {isFlagship && (
+            <span className="bg-[var(--color-accent)] px-3 py-1.5 text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-inverse)]">
+              Flagship
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col p-5 lg:p-6">
+        <p className="mb-3 text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
+          {isFlagship ? "Flagship practice" : "Specialty practice"}
+        </p>
+        <h3 className="font-[family-name:var(--font-display)] text-[1.35rem] font-normal leading-[1.14] text-[var(--color-text)] lg:text-[1.55rem]">
           {niche.name}
         </h3>
-        <p
-          className={`leading-[1.55] text-white/85 ${
-            isFlagship
-              ? "text-[0.95rem] lg:text-[1rem] max-w-[480px]"
-              : "text-[0.82rem] lg:text-[0.85rem] line-clamp-3"
-          }`}
-        >
+        <p className="mt-3 text-[0.9rem] leading-[1.65] text-[var(--color-text-muted)]">
           {isFlagship ? niche.description : niche.tagline}
         </p>
-
-        {/* VIEW SPECIALTY arrow — fades up on hover */}
-        <div
-          className={`flex items-center gap-2 text-[0.65rem] tracking-[0.2em] uppercase font-semibold text-white opacity-100 lg:opacity-0 lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-[opacity,transform] duration-300 ${
-            isFlagship ? "mt-6" : "mt-4"
-          }`}
-        >
-          View {isFlagship ? "Flagship" : "Specialty"}
+        <div className="mt-auto flex items-center justify-between gap-4 pt-6 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">
+          Explore
           <svg
-            className="w-3.5 h-3.5"
+            className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
             viewBox="0 0 16 16"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
+            aria-hidden
           >
             <path d="M3 8h10M9 4l4 4-4 4" />
           </svg>
         </div>
       </div>
     </Link>
-  );
-}
-
-function CTARibbon() {
-  return (
-    <div className="col-span-12 bg-[var(--color-accent)] text-[var(--color-text-inverse)] px-7 lg:px-12 py-7 lg:py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-8 mt-1">
-      {/* Decorative micro-mark on the left */}
-      <div className="flex items-center gap-5">
-        <span className="hidden sm:block w-10 h-px bg-[var(--color-text-inverse)]/40" />
-        <p className="font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.2vw,1.75rem)] font-light leading-tight">
-          Not sure where you fit?{" "}
-          <em className="italic opacity-90">Let&apos;s talk.</em>
-        </p>
-      </div>
-
-      <Link
-        href="/book"
-        className="group inline-flex items-center gap-3 text-[0.7rem] tracking-[0.2em] uppercase font-semibold px-6 py-3.5 bg-[var(--color-bg)] text-[var(--color-accent)] hover:bg-white transition-colors duration-300 flex-shrink-0"
-      >
-        Book Consultation
-        <svg
-          className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1.5"
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M3 8h10M9 4l4 4-4 4" />
-        </svg>
-      </Link>
-    </div>
   );
 }

@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Hero, StatsBar, Niches, Transactions, Testimonials, LeadCapture, Referral } from "@/components/sections";
+import {
+  Hero,
+  StatsBar,
+  Niches,
+  Transactions,
+  Testimonials,
+  LeadCapture,
+  Referral,
+} from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "Sankalp Real Estate | Luxury GTA Homes & Expert Guidance",
   description:
-    "Trusted by families across the Greater Toronto Area. Seven specialties — first-time buyers, luxury homes, condos, pre-construction, investment, relocation, and downsizing. Your home, your legacy.",
+    "Trusted by families across the Greater Toronto Area. Seven specialties - first-time buyers, luxury homes, condos, pre-construction, investment, relocation, and downsizing. Your home, your legacy.",
   alternates: { canonical: "https://sankalprealestate.ca" },
 };
 
@@ -12,9 +20,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <StatsBar />
-      <Niches />
       <Transactions />
+      <Niches />
+      <StatsBar />
       <Testimonials />
       <LeadCapture />
       <Referral />

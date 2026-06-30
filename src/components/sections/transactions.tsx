@@ -1,17 +1,32 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
 import { ScrollReveal } from "@/components/animations";
-import { featuredSoldResults, type SoldResult } from "@/lib/sold-results";
+import {
+  featuredSoldResults,
+  soldResultStats,
+  type SoldResult,
+} from "@/lib/sold-results";
 import Image from "next/image";
 import Link from "next/link";
 
 const transactions = featuredSoldResults;
+const AUTO_SCROLL_DELAY = 4500;
+
+const summaryStats = [
+  { value: soldResultStats.total, label: "Sold records" },
+  { value: soldResultStats.cities, label: "Cities" },
+  { value: soldResultStats.fastestSale, label: "Fastest DOM" },
+];
 
 export function Transactions() {
+  const sectionRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
+  const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
 
   const scrollToIndex = useCallback((idx: number, behavior: ScrollBehavior = "smooth") => {
     if (!railRef.current) return;
@@ -19,10 +34,37 @@ export function Transactions() {
     const wrapped = ((idx % total) + total) % total;
     const cards = railRef.current.querySelectorAll<HTMLElement>("[data-card]");
     const target = cards[wrapped];
+
     if (target) {
       target.scrollIntoView({ behavior, block: "nearest", inline: "start" });
       setActiveIndex(wrapped);
     }
+  }, []);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setShouldReduceMotion(query.matches);
+
+    updateMotionPreference();
+    query.addEventListener("change", updateMotionPreference);
+
+    return () => query.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSectionVisible(entry.isIntersecting),
+      { threshold: 0.25 }
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -33,53 +75,101 @@ export function Transactions() {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
         if (visible) {
           const idx = Number(visible.target.getAttribute("data-card"));
           setActiveIndex(idx);
         }
       },
-      { root: railRef.current, threshold: [0.5, 0.75, 1] }
+      { root: railRef.current, threshold: [0.55, 0.75, 1] }
     );
+
     cards.forEach((card) => observer.observe(card));
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (
+      shouldReduceMotion ||
+      isAutoPaused ||
+      !isSectionVisible ||
+      transactions.length < 2
+    ) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      if (document.hidden) return;
+      scrollToIndex(activeIndexRef.current + 1);
+    }, AUTO_SCROLL_DELAY);
+
+    return () => window.clearInterval(interval);
+  }, [isAutoPaused, isSectionVisible, scrollToIndex, shouldReduceMotion]);
+
   return (
-    <section className="py-[var(--section-gap)] bg-[var(--color-surface)] overflow-hidden border-t border-[var(--color-divider)] relative">
-      <div className="relative px-6 lg:px-16 xl:px-24 mb-12 lg:mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden border-b border-[var(--color-divider)] bg-[var(--color-bg)] py-14 lg:py-[4.5rem]"
+      onMouseEnter={() => setIsAutoPaused(true)}
+      onMouseLeave={() => setIsAutoPaused(false)}
+      onFocusCapture={() => setIsAutoPaused(true)}
+      onBlurCapture={(event) => {
+        const nextTarget =
+          event.relatedTarget instanceof Node ? event.relatedTarget : null;
+
+        if (!event.currentTarget.contains(nextTarget)) {
+          setIsAutoPaused(false);
+        }
+      }}
+    >
+      <div className="relative mb-8 grid grid-cols-1 items-end gap-8 px-6 lg:grid-cols-12 lg:px-16 xl:px-24">
         <ScrollReveal className="lg:col-span-7">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="w-12 h-px bg-[var(--color-accent)]" />
-            <p className="text-[0.7rem] tracking-[0.22em] uppercase text-[var(--color-accent)] font-semibold">
-              Verified Sold Results
-            </p>
-          </div>
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-[1.05]">
-            Real deals, <em className="italic text-[var(--color-accent-light)]">real addresses.</em>
+          <p className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
+            Verified sold results
+          </p>
+          <h2 className="max-w-[640px] font-[family-name:var(--font-display)] text-3xl font-light leading-[1.08] text-[var(--color-text)] md:text-4xl lg:text-5xl">
+            Recent sales, placed where buyers actually look.
           </h2>
         </ScrollReveal>
-        <ScrollReveal delay={0.15} className="lg:col-span-5">
-          <p className="text-[var(--color-text-muted)] leading-[1.75] text-[0.98rem] max-w-[460px] mb-6 lg:mb-0">
-            A selection of recent sales from across the Greater Toronto Area &mdash; condos, townhomes, and detached homes.
+
+        <ScrollReveal delay={0.12} className="lg:col-span-5">
+          <p className="max-w-[480px] text-[0.98rem] leading-[1.75] text-[var(--color-text-muted)]">
+            Real address-level proof from condos, townhomes, detached homes, and
+            commercial properties across the Greater Toronto Area.
           </p>
+          <div className="mt-5 grid grid-cols-3 border border-[var(--color-divider)] bg-[var(--color-surface-raised)]">
+            {summaryStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="border-r border-[var(--color-divider)] px-3 py-3 last:border-r-0"
+              >
+                <p className="font-[family-name:var(--font-display)] text-2xl font-light leading-none text-[var(--color-accent)]">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-[0.56rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-text-soft)]">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </ScrollReveal>
       </div>
 
-      <div className="relative px-6 lg:px-16 xl:px-24 mb-6 flex items-center justify-between gap-6">
-        <div className="flex items-baseline gap-3">
-          <span className="font-[family-name:var(--font-display)] italic text-[1.15rem] text-[var(--color-accent)]">
-            - {String(activeIndex + 1).padStart(2, "0")}
+      <div className="relative mb-5 flex items-center justify-between gap-5 px-6 lg:px-16 xl:px-24">
+        <div className="flex items-center gap-3">
+          <span className="font-[family-name:var(--font-display)] text-[1rem] font-light italic text-[var(--color-accent)]">
+            {String(activeIndex + 1).padStart(2, "0")}
           </span>
-          <span className="text-[0.65rem] tracking-[0.25em] uppercase text-[var(--color-text-muted)]">
+          <span className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
             of {String(transactions.length).padStart(2, "0")}
           </span>
-          <div className="hidden sm:flex items-center gap-1.5 ml-4">
+          <div className="hidden items-center gap-1.5 sm:flex">
             {transactions.map((transaction, i) => (
               <button
                 key={transaction.id}
                 onClick={() => scrollToIndex(i)}
                 aria-label={`Go to sold result ${i + 1}`}
-                className="h-11 px-1.5 flex items-center"
+                className="flex h-11 items-center px-1.5"
               >
                 <span
                   className={`block h-1 transition-[width,background-color] duration-300 ${
@@ -106,36 +196,26 @@ export function Transactions() {
           />
           <Link
             href="/sold"
-            className="ml-2 lg:ml-4 inline-flex items-center gap-3 text-[0.7rem] tracking-[0.2em] uppercase text-[var(--color-accent)] font-semibold border-b border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] pb-1.5 transition-colors group"
+            className="ml-1 inline-flex min-h-11 items-center whitespace-nowrap border-b border-[var(--color-accent)]/30 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)] transition-colors duration-300 hover:border-[var(--color-accent)] lg:ml-3"
           >
-            View All
-            <svg
-              className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1.5"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
+            View all
           </Link>
         </div>
       </div>
 
       <div
         ref={railRef}
-        className="relative flex gap-4 lg:gap-5 px-6 lg:px-16 xl:px-24 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="relative flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-4 [scrollbar-width:none] lg:px-16 xl:px-24 [&::-webkit-scrollbar]:hidden"
       >
         {transactions.map((transaction, i) => (
           <TransactionCard
             key={transaction.id}
             transaction={transaction}
             index={i}
-            featured={i === 0}
             isActive={i === activeIndex}
           />
         ))}
-        <div className="flex-shrink-0 w-1 lg:w-12" aria-hidden />
+        <div className="w-1 flex-shrink-0 lg:w-12" aria-hidden />
       </div>
     </section>
   );
@@ -155,10 +235,10 @@ function NavButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={direction === "prev" ? "Previous" : "Next"}
-      className="w-10 h-10 lg:w-11 lg:h-11 border border-[var(--color-border-strong)] flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text-inverse)] hover:border-[var(--color-accent)] disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[var(--color-text)] disabled:hover:border-[var(--color-border-strong)] disabled:cursor-not-allowed transition-all duration-300"
+      className="flex h-11 w-11 items-center justify-center border border-[var(--color-border-strong)] text-[var(--color-text)] transition-[background-color,color,border-color,opacity] duration-300 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text-inverse)] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-[var(--color-border-strong)] disabled:hover:bg-transparent disabled:hover:text-[var(--color-text)]"
     >
       <svg
-        className="w-4 h-4"
+        className="h-4 w-4"
         viewBox="0 0 16 16"
         fill="none"
         stroke="currentColor"
@@ -177,109 +257,68 @@ function NavButton({
 function TransactionCard({
   transaction,
   index,
-  featured,
   isActive,
 }: {
   transaction: SoldResult;
   index: number;
-  featured?: boolean;
   isActive: boolean;
 }) {
-  const specs = transaction.category === "Residential"
-    ? `${transaction.beds} bed / ${transaction.baths} bath / ${transaction.rooms} rooms`
-    : transaction.propertyType;
+  const specs =
+    transaction.category === "Residential"
+      ? [transaction.beds && `${transaction.beds} bed`, transaction.baths && `${transaction.baths} bath`, transaction.sqft]
+          .filter(Boolean)
+          .join(" / ")
+      : transaction.sqft;
 
   return (
-    <motion.article
+    <article
       data-card={index}
-      className={`group relative flex-shrink-0 snap-start transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        featured
-          ? "w-[88vw] sm:w-[480px] lg:w-[560px]"
-          : "w-[78vw] sm:w-[340px] lg:w-[380px]"
-      } ${isActive ? "opacity-100" : "opacity-70 hover:opacity-100"}`}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`group w-[82vw] flex-shrink-0 snap-start sm:w-[316px] lg:w-[340px] ${
+        isActive ? "opacity-100" : "opacity-80 hover:opacity-100"
+      }`}
     >
-      <div
-        className="relative overflow-hidden bg-[var(--color-bg)] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[3px] h-[440px] sm:h-[480px] lg:h-[520px]"
-      >
-        <Image
-          src={transaction.image}
-          alt={`${transaction.address}, ${transaction.city}`}
-          fill
-          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
-          sizes={featured ? "560px" : "380px"}
-        />
-        <div
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.52) 32%, rgba(0,0,0,0.12) 60%, rgba(0,0,0,0.02) 82%, rgba(0,0,0,0.18) 100%)",
-          }}
-        />
-        <div className="absolute inset-3 lg:inset-4 border border-white/15 pointer-events-none z-10" />
-
-        <div className="absolute top-5 left-5 lg:top-6 lg:left-6 z-20 flex items-center gap-2">
-          <span className="text-[0.55rem] tracking-[0.3em] uppercase font-semibold px-3 py-1.5 bg-[var(--color-accent)] text-[var(--color-text-inverse)]">
-            Sold
-          </span>
-          {featured && (
-            <span className="text-[0.55rem] tracking-[0.3em] uppercase font-semibold px-3 py-1.5 bg-[var(--color-bg)]/90 backdrop-blur-md text-[var(--color-accent)]">
-              MLS Data
+      <div className="h-full overflow-hidden border border-[var(--color-divider)] bg-[var(--color-surface-raised)] shadow-[0_18px_50px_-42px_rgba(31,31,31,0.55)] transition-transform duration-300 group-hover:-translate-y-1">
+        <div className="relative aspect-[4/3] overflow-hidden bg-[var(--color-surface)]">
+          <Image
+            src={transaction.image}
+            alt={`${transaction.address}, ${transaction.city}`}
+            fill
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+            sizes="340px"
+          />
+          <div className="absolute left-4 top-4 flex items-center gap-2">
+            <span className="bg-[var(--color-accent)] px-3 py-1.5 text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-inverse)]">
+              Sold
             </span>
-          )}
-        </div>
-
-        <div
-          className="absolute top-5 right-5 lg:top-6 lg:right-6 z-20 text-right"
-          style={{ textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}
-        >
-          <p className="text-[0.55rem] tracking-[0.3em] uppercase text-white/70 mb-1">
-            DOM
-          </p>
-          <p className="font-[family-name:var(--font-display)] italic text-[1.3rem] lg:text-[1.5rem] leading-none font-light text-white">
-            {transaction.daysOnMarket}
-          </p>
-        </div>
-
-        <div
-          className={`absolute inset-x-0 bottom-0 z-20 text-white ${featured ? "p-7 lg:p-10" : "p-5 lg:p-6"}`}
-          style={{ textShadow: "0 1px 16px rgba(0,0,0,0.45)" }}
-        >
-          <p className="text-[0.55rem] tracking-[0.32em] uppercase text-white/60 font-medium mb-3">
-            <span className="font-[family-name:var(--font-display)] italic text-[0.75rem] tracking-normal text-white/85 mr-2">
-              {String(index + 1).padStart(2, "0")}
+            <span className="bg-[var(--color-bg)]/92 px-3 py-1.5 text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)] backdrop-blur">
+              {transaction.daysOnMarket} DOM
             </span>
-            of {String(transactions.length).padStart(2, "0")}
-          </p>
-
-          <p className={`font-[family-name:var(--font-display)] font-normal leading-[1.15] mb-1.5 ${featured ? "text-[1.5rem] lg:text-[1.95rem]" : "text-[1.1rem] lg:text-[1.25rem]"}`}>
-            {transaction.address}
-          </p>
-          <p className="text-[0.78rem] text-white/75 mb-4 tracking-[0.02em]">
-            {transaction.city} / {specs}
-          </p>
-          {featured && (
-            <p className="text-[0.88rem] text-white/85 leading-[1.6] mb-5 max-w-[420px]">
-              {transaction.highlight}
-            </p>
-          )}
-          <div className="flex items-end justify-between gap-4 pt-3 border-t border-white/15">
-            <p className={`font-[family-name:var(--font-display)] font-light leading-none mt-2 ${featured ? "text-[1.35rem] lg:text-[1.75rem]" : "text-[1.05rem] lg:text-[1.2rem]"}`}>
-              {transaction.propertyType}
-            </p>
-            <p className="text-[0.6rem] tracking-[0.18em] uppercase text-white/65 pb-1">
-              MLS {transaction.mls}
-            </p>
           </div>
         </div>
 
-        {isActive && (
-          <span className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-accent)] z-30" />
-        )}
+        <div className="flex min-h-[210px] flex-col p-5">
+          <p className="mb-3 text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-soft)]">
+            MLS {transaction.mls}
+          </p>
+          <h3 className="font-[family-name:var(--font-display)] text-[1.35rem] font-normal leading-[1.18] text-[var(--color-text)]">
+            {transaction.address}
+          </h3>
+          <p className="mt-2 text-[0.88rem] leading-[1.55] text-[var(--color-text-muted)]">
+            {transaction.city} / {specs}
+          </p>
+          <p className="mt-4 line-clamp-2 text-[0.86rem] leading-[1.6] text-[var(--color-text-muted)]">
+            {transaction.highlight}
+          </p>
+          <div className="mt-auto flex items-end justify-between gap-4 border-t border-[var(--color-divider)] pt-4">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">
+              {transaction.niche}
+            </p>
+            <p className="max-w-[150px] text-right text-[0.72rem] leading-[1.35] text-[var(--color-text-soft)]">
+              {transaction.propertyType}
+            </p>
+          </div>
+        </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
