@@ -23,12 +23,12 @@ export function NewsletterForm() {
         placeholder="your@email.com"
         aria-label="Email address"
         disabled={submitted}
-        className="flex-1 px-5 py-4 bg-[var(--color-text-inverse)]/10 border border-[var(--color-text-inverse)]/25 text-[var(--color-text-inverse)] placeholder-[var(--color-text-inverse)]/55 text-[0.95rem] outline-none focus:border-[var(--color-text-inverse)]/70 focus:bg-[var(--color-text-inverse)]/15 transition-colors duration-300 disabled:opacity-60"
+        className="flex-1 border border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-4 text-[0.95rem] text-[var(--color-text)] outline-none placeholder:text-[var(--color-text-soft)] transition-colors duration-300 focus:border-[var(--color-accent)] focus:bg-[var(--color-surface-raised)] disabled:opacity-60"
       />
       <button
         type="submit"
         disabled={submitted}
-        className="group inline-flex items-center justify-center gap-3 text-[0.7rem] tracking-[0.2em] uppercase font-semibold px-6 py-4 bg-[var(--color-bg)] text-[var(--color-accent)] hover:bg-white transition-colors duration-300 flex-shrink-0 disabled:opacity-80 disabled:cursor-default"
+        className="group inline-flex flex-shrink-0 items-center justify-center gap-3 bg-[var(--color-accent)] px-6 py-4 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[var(--color-text-inverse)] transition-colors duration-300 hover:bg-[var(--color-accent-light)] disabled:cursor-default disabled:opacity-80"
       >
         {submitted ? (
           <>

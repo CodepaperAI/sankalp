@@ -2,33 +2,54 @@
 
 import { ScrollReveal, MagneticButton } from "@/components/animations";
 import { PageHero } from "@/components/sections/page-hero";
+import { siteContact } from "@/lib/contact";
 import { images } from "@/lib/images";
 
-type ContactIconName = "phone" | "whatsapp" | "mail" | "map";
+type ContactIconName =
+  | "phone"
+  | "whatsapp"
+  | "mail"
+  | "map"
+  | "instagram"
+  | "facebook";
 
 const contactMethods = [
   {
     label: "Phone",
-    value: "(416) 555-0199",
-    href: "tel:+14165550199",
+    value: siteContact.phoneDisplay,
+    href: siteContact.phoneHref,
     icon: "phone",
   },
   {
     label: "WhatsApp",
-    value: "+1 (416) 555-0199",
-    href: "https://wa.me/14165550199",
+    value: siteContact.phoneDisplay,
+    href: siteContact.whatsappHref,
     icon: "whatsapp",
     external: true,
   },
   {
+    label: "Instagram",
+    value: siteContact.instagramLabel,
+    href: siteContact.instagramHref,
+    icon: "instagram",
+    external: true,
+  },
+  {
+    label: "Facebook",
+    value: "Follow market updates",
+    href: siteContact.facebookHref,
+    icon: "facebook",
+    external: true,
+  },
+  {
     label: "Email",
-    value: "hello@sankalprealestate.ca",
-    href: "mailto:hello@sankalprealestate.ca",
+    value: siteContact.email,
+    href: siteContact.emailHref,
     icon: "mail",
   },
   {
     label: "Office",
-    value: "Greater Toronto Area",
+    value: siteContact.areaServed,
     href: "/communities",
     icon: "map",
   },
@@ -62,7 +83,7 @@ export function ContactContent() {
             </ScrollReveal>
 
             {/* Contact methods */}
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
               {contactMethods.map((method, i) => (
                 <ScrollReveal key={method.label} delay={0.3 + i * 0.1}>
                   <a
@@ -192,6 +213,20 @@ function ContactIcon({ name }: { name: ContactIconName }) {
         <svg {...common}>
           <path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z" />
           <path d="M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+        </svg>
+      );
+    case "instagram":
+      return (
+        <svg {...common}>
+          <rect x="4" y="4" width="16" height="16" rx="4" />
+          <path d="M9.5 12a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0Z" />
+          <path d="M16.8 7.2h.01" />
+        </svg>
+      );
+    case "facebook":
+      return (
+        <svg {...common}>
+          <path d="M14 8h2V4h-2.4C11 4 9.5 5.6 9.5 8.1V10H7v4h2.5v6h4v-6H16l.5-4h-3V8.8c0-.5.2-.8.5-.8Z" />
         </svg>
       );
   }

@@ -1,16 +1,17 @@
 import { images } from "@/lib/images";
+import { siteContact } from "@/lib/contact";
 import Image from "next/image";
 import Link from "next/link";
 
 const serviceNotes = [
+  ["Direct", siteContact.phoneDisplay],
+  ["Social", siteContact.instagramLabel],
   ["Area", "Greater Toronto"],
-  ["Practice", "Buy / Sell"],
-  ["Style", "Data-led"],
 ];
 
 export function Hero() {
   return (
-    <section className="relative flex h-[88svh] min-h-[650px] max-h-[860px] items-center overflow-hidden border-b border-[var(--color-divider)] bg-[var(--color-bg)]">
+    <section className="relative flex min-h-[calc(100svh-2rem)] items-center overflow-hidden border-b border-[var(--color-divider)] bg-[var(--color-bg)] lg:h-[88svh] lg:min-h-[700px] lg:max-h-[900px]">
       <div className="absolute inset-0 z-0">
         <Image
           src={images.heroLuxuryHome}
@@ -44,17 +45,19 @@ export function Hero() {
             Greater Toronto Area
           </p>
 
-          <h1 className="mb-7 max-w-full font-[family-name:var(--font-display)] text-[3.45rem] font-light leading-[0.92] text-[var(--color-text)] sm:text-[5.5rem] sm:leading-[0.88] lg:text-[6.5rem] xl:text-[7.5rem]">
+          <h1
+            aria-label="Sankalp Real Estate"
+            className="mb-7 max-w-full font-[family-name:var(--font-display)] text-[3.15rem] font-light leading-[0.94] text-[var(--color-text)] sm:text-[5.2rem] sm:leading-[0.88] lg:text-[6.3rem] xl:text-[7.1rem]"
+          >
             <span className="block">Sankalp</span>
             <span className="block italic text-[var(--color-accent-light)]">
               Real Estate.
             </span>
           </h1>
 
-          <p className="mb-8 w-full max-w-[330px] text-[1rem] leading-[1.75] text-[var(--color-text-muted)] sm:max-w-[520px] lg:text-[1.08rem]">
-            Real estate at the pace of a relationship, not a transaction. From
-            first homes in Brampton to estates on the Bridle Path, every search
-            starts with where you&apos;re going next.
+          <p className="mb-8 w-full max-w-[330px] text-[1rem] leading-[1.75] text-[var(--color-text-muted)] sm:max-w-[540px] lg:text-[1.08rem]">
+            A context-first landing place for buying, selling, valuing, and
+            reading the GTA market before you make the next move.
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -64,12 +67,12 @@ export function Hero() {
             >
               Home Valuation
             </Link>
-            <Link
-              href="/book"
-              className="inline-flex min-h-12 items-center whitespace-nowrap border border-[var(--color-border-strong)] bg-[var(--color-bg)]/72 px-6 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text)] transition-[background-color,color,border-color] duration-300 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-accent)]"
+            <a
+              href={siteContact.phoneHref}
+              className="inline-flex min-h-12 items-center whitespace-nowrap border border-[var(--color-border-strong)] bg-[var(--color-bg)]/78 px-6 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text)] transition-[background-color,color,border-color] duration-300 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-accent)]"
             >
-              Book a Call
-            </Link>
+              Call {siteContact.phoneDisplay}
+            </a>
           </div>
         </div>
       </div>

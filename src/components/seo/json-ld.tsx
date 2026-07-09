@@ -1,12 +1,16 @@
+import { siteContact, socialLinks } from "@/lib/contact";
+
 export function JsonLd() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    name: "Sankalp Real Estate",
+    name: siteContact.brandName,
     description:
-      "Trusted by families across the Greater Toronto Area. Seven specialties — first-time buyers, luxury homes, condos, pre-construction, investment, relocation, and downsizing.",
+      "Trusted by families across the Greater Toronto Area. Seven specialties - first-time buyers, luxury homes, condos, pre-construction, investment, relocation, and downsizing.",
     url: "https://sankalprealestate.ca",
-    telephone: "+14165550199",
+    telephone: siteContact.phoneHref.replace("tel:", ""),
+    email: siteContact.email,
+    sameAs: socialLinks.map((social) => social.href),
     address: {
       "@type": "PostalAddress",
       addressLocality: "Toronto",

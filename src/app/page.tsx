@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import {
   Hero,
+  StartHere,
+  ContextPaths,
   StatsBar,
   Niches,
   Transactions,
@@ -20,7 +22,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <StartHere />
       <Transactions />
+      <ContextPaths />
       <Niches />
       <StatsBar />
       <Testimonials />

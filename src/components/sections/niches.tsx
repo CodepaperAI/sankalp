@@ -1,6 +1,7 @@
 "use client";
 
 import { ScrollReveal } from "@/components/animations";
+import { siteContact } from "@/lib/contact";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -87,20 +88,20 @@ const niches = [flagship, ...supporting];
 
 export function Niches() {
   return (
-    <section className="relative overflow-hidden bg-[var(--color-surface)] px-6 py-16 lg:px-16 lg:py-20 xl:px-24">
-      <div className="relative mb-10 grid grid-cols-1 items-end gap-6 lg:grid-cols-12">
+    <section className="relative overflow-hidden bg-[var(--color-surface)] px-6 py-14 lg:px-16 lg:py-16 xl:px-24">
+      <div className="relative mb-8 grid grid-cols-1 items-end gap-5 lg:grid-cols-12">
         <ScrollReveal className="lg:col-span-6">
           <p className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
             Ways we can help
           </p>
-          <h2 className="max-w-[620px] font-[family-name:var(--font-display)] text-3xl font-light leading-[1.08] text-[var(--color-text)] md:text-4xl lg:text-5xl">
-            Specific guidance for the move you are actually making.
+          <h2 className="max-w-[560px] font-[family-name:var(--font-display)] text-[2rem] font-light leading-[1.08] text-[var(--color-text)] md:text-[2.45rem] lg:text-[2.8rem]">
+            Specific guidance for the move you are making.
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={0.12} className="lg:col-span-5 lg:col-start-8">
           <p className="max-w-[520px] text-[0.98rem] leading-[1.75] text-[var(--color-text-muted)]">
-            The services are still broad enough to cover the whole journey, but
-            the layout is calmer: scan the fit, open the path, keep moving.
+            Scan the fit, open the right path, and keep the process moving with
+            advice that matches your goal.
           </p>
         </ScrollReveal>
       </div>
@@ -120,12 +121,12 @@ export function Niches() {
           Not sure where you fit?{" "}
           <span className="italic text-[var(--color-accent)]">Start with a conversation.</span>
         </p>
-        <Link
-          href="/book"
+        <a
+          href={siteContact.phoneHref}
           className="inline-flex min-h-11 items-center justify-center whitespace-nowrap bg-[var(--color-accent)] px-5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-inverse)] transition-colors duration-300 hover:bg-[var(--color-accent-light)]"
         >
-          Book a Call
-        </Link>
+          Call {siteContact.phoneDisplay}
+        </a>
       </div>
     </section>
   );
@@ -142,7 +143,7 @@ function NicheCard({
     <Link
       href={niche.href}
       aria-label={`Explore ${niche.name}`}
-      className={`group flex h-full min-h-[344px] flex-col overflow-hidden border border-[var(--color-divider)] bg-[var(--color-surface-raised)] shadow-[0_18px_50px_-44px_rgba(31,31,31,0.45)] transition-transform duration-300 hover:-translate-y-1 ${
+      className={`group flex h-full min-h-[318px] flex-col overflow-hidden border border-[var(--color-divider)] bg-[var(--color-surface-raised)] shadow-[0_18px_50px_-46px_rgba(31,31,31,0.45)] transition-transform duration-300 hover:-translate-y-1 ${
         isFlagship ? "xl:col-span-2" : ""
       }`}
     >
@@ -170,11 +171,11 @@ function NicheCard({
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-5 lg:p-6">
+      <div className="flex flex-1 flex-col p-5">
         <p className="mb-3 text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
           {isFlagship ? "Flagship practice" : "Specialty practice"}
         </p>
-        <h3 className="font-[family-name:var(--font-display)] text-[1.35rem] font-normal leading-[1.14] text-[var(--color-text)] lg:text-[1.55rem]">
+        <h3 className="font-[family-name:var(--font-display)] text-[1.28rem] font-normal leading-[1.14] text-[var(--color-text)] lg:text-[1.42rem]">
           {niche.name}
         </h3>
         <p className="mt-3 text-[0.9rem] leading-[1.65] text-[var(--color-text-muted)]">

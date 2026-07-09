@@ -1,4 +1,6 @@
 export { Hero } from "./hero";
+export { StartHere } from "./start-here";
+export { ContextPaths } from "./context-paths";
 export { StatsBar } from "./stats-bar";
 export { Niches } from "./niches";
 export { Transactions } from "./transactions";

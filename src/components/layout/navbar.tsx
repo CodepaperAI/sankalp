@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { siteContact, socialLinks } from "@/lib/contact";
 
 const navLinks = [
   { href: "/buy", label: "Buy" },
@@ -10,6 +11,15 @@ const navLinks = [
   { href: "/sold", label: "Sold" },
   { href: "/communities", label: "Communities" },
   { href: "/about", label: "About" },
+];
+
+const navSocialLinks = [
+  ...socialLinks,
+  {
+    href: siteContact.whatsappHref,
+    label: "WhatsApp",
+    short: "WhatsApp",
+  },
 ];
 
 export function Navbar() {
@@ -73,18 +83,32 @@ export function Navbar() {
       </ul>
 
       <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden items-center gap-2 xl:flex" aria-label="Social links">
+          {navSocialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={social.label}
+              className="inline-flex min-h-11 items-center justify-center border border-[var(--color-border)] bg-[var(--color-bg)]/58 px-4 text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)] transition-[background-color,border-color,color] duration-300 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-raised)] hover:text-[var(--color-accent)]"
+            >
+              {social.short}
+            </a>
+          ))}
+        </div>
         <Link
           href="/contact"
           className="inline-flex min-h-11 items-center px-4 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)] transition-colors duration-300 hover:text-[var(--color-accent)]"
         >
           Contact
         </Link>
-        <Link
-          href="/book"
+        <a
+          href={siteContact.phoneHref}
           className="inline-flex min-h-11 items-center border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-inverse)] transition-[background-color,color,border-color] duration-300 hover:bg-[var(--color-accent-light)]"
         >
-          Book a Call
-        </Link>
+          Call Now
+        </a>
       </div>
 
       <button
@@ -132,13 +156,46 @@ export function Navbar() {
               </span>
             </Link>
           ))}
-          <Link
-            href="/book"
-            onClick={() => setMobileOpen(false)}
-            className="mt-auto inline-flex min-h-12 items-center justify-center text-[0.7rem] tracking-[0.16em] uppercase font-semibold px-8 bg-[var(--color-accent)] text-[var(--color-text-inverse)]"
-          >
-            Book a Call
-          </Link>
+          <div className="mt-auto space-y-4 pt-8">
+            <div className="grid grid-cols-2 gap-2">
+              <a
+                href={siteContact.phoneHref}
+                onClick={() => setMobileOpen(false)}
+                className="inline-flex min-h-12 items-center justify-center bg-[var(--color-accent)] px-4 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-inverse)]"
+              >
+                Call
+              </a>
+              <Link
+                href="/book"
+                onClick={() => setMobileOpen(false)}
+                className="inline-flex min-h-12 items-center justify-center border border-[var(--color-border-strong)] px-4 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]"
+              >
+                Book
+              </Link>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--color-divider)] pt-4">
+              <a
+                href={siteContact.phoneHref}
+                className="text-[0.78rem] font-semibold text-[var(--color-accent)]"
+              >
+                {siteContact.phoneDisplay}
+              </a>
+              <div className="flex gap-3">
+                {navSocialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setMobileOpen(false)}
+                    className="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-muted)]"
+                  >
+                    {social.short}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>
